@@ -158,6 +158,7 @@ EntryStatic.getAllBlocks = function () {
                 'repeat_inf',
                 'repeat_while_true',
                 'stop_repeat',
+                'continue_repeat',
                 '_if',
                 'if_else',
                 'wait_until_true',

@@ -293,9 +293,12 @@ module.exports = {
                             script.playState = 1;
                             const instance = Entry.Utils.playSound(sound.id);
                             Entry.Utils.addSoundInstances(instance, sprite);
+                            const duration = Math.floor(
+                                (sound.duration * 1000) / Entry.playbackRateValue
+                            );
                             setTimeout(() => {
                                 script.playState = 0;
-                            }, sound.duration * 1000);
+                            }, duration);
                         }
                         return script;
                     } else if (script.playState == 1) {

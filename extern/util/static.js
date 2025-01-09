@@ -68,6 +68,7 @@ EntryStatic.getAllBlocks = function () {
                 'repeat_inf',
                 'repeat_while_true',
                 'stop_repeat',
+                'continue_repeat',
                 '_if',
                 'if_else',
                 'wait_until_true',
@@ -486,6 +487,10 @@ EntryStatic.getAllBlocks = function () {
                 'get_social_disaster_guideline',
                 'count_safety_accident_guideline',
                 'get_safety_accident_guideline',
+                'disaster_alert_title',
+                'count_disaster_alert',
+                'get_disaster_alert',
+                'check_disaster_alert',
             ],
         },
         {

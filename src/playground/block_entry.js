@@ -2709,11 +2709,14 @@ function getBlocks() {
                     const sounds = sprite.parent.sounds;
                     const isExist = Entry.isExist(soundId, 'id', sounds);
                     if (isExist) {
+                        const duration = Math.floor(
+                            (sound.duration * 1000) / Entry.playbackRateValue
+                        );
                         const instance = Entry.Utils.playSound(soundId);
                         Entry.Utils.addSoundInstances(instance);
                         setTimeout(() => {
                             script.playState = 0;
-                        }, sound.duration * 1000);
+                        }, duration);
                     }
                     return script;
                 } else if (script.playState === 1) {
