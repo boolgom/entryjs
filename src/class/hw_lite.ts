@@ -265,7 +265,7 @@ export default class HardwareLite {
     }
 
     setFlasher() {
-        if (this.hwModule.firmwareFlash) {
+        if (this.hwModule.supportFirmwareFlash) {
             this.flasher = new WebUsbFlasher();
         }
     }

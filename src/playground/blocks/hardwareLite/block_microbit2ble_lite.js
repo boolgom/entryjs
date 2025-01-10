@@ -19,7 +19,7 @@ const convertPresetImageToLedState = (preset) => {
     Entry.Microbit2BleLite = new (class Microbit2LiteBle {
         constructor() {
             this.webapiType = 'ble';
-            this.firmwareFlash = true;
+            this.supportFirmwareFlash = true;
             this.bluetoothInfo = {
                 filters: [
                     {

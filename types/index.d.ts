@@ -213,7 +213,7 @@ export declare interface EntryHWLiteBaseModule extends EntryBlockModule {
     type?: 'master' | 'slave';
     delimeter?: string | number;
     webapiType?: 'ble' | 'usb' | 'serial';
-    firmwareFlash?: boolean;
+    supportFirmwareFlash?: boolean;
 
     // 필수 함수 목록
     setZero: () => void;

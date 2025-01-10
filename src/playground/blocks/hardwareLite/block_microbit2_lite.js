@@ -191,6 +191,7 @@ const EVENT_INTERVAL = 150;
             this.id = '220301';
             this.url = 'http://microbit.org/ko/';
             this.imageName = 'microbit2lite.png';
+            this.supportFirmwareFlash = true;
             this.title = {
                 en: 'Microbit V2',
                 ko: '마이크로비트 V2',
