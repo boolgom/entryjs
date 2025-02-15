@@ -27,7 +27,7 @@ function scriptCheck(script) {
     return true;
 }
 
-Entry.isDefaultProject = function(project) {
+Entry.isDefaultProject = function (project) {
     try {
         if (Entry.stateManager.undoStack_.length) {
             return false;
@@ -73,7 +73,7 @@ Entry.isDefaultProject = function(project) {
     }
 };
 
-Entry.getStartProject = function(mediaFilePath) {
+Entry.getStartProject = function (mediaFilePath) {
     return {
         category: Lang.Menus.other,
         scenes: [
@@ -151,6 +151,7 @@ Entry.getStartProject = function(mediaFilePath) {
                         {
                             id: 'vx80',
                             fileurl: `${mediaFilePath}media/entrybot1.svg`,
+                            thumbUrl: `${mediaFilePath}media/entrybot1.svg`,
                             name: `${Lang.Blocks.walking_entryBot}1`,
                             imageType: 'svg',
                             dimension: {
@@ -161,6 +162,7 @@ Entry.getStartProject = function(mediaFilePath) {
                         {
                             id: '4t48',
                             fileurl: `${mediaFilePath}media/entrybot2.svg`,
+                            thumbUrl: `${mediaFilePath}media/entrybot2.svg`,
                             name: `${Lang.Blocks.walking_entryBot}2`,
                             imageType: 'svg',
                             dimension: {

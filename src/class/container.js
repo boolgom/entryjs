@@ -7,7 +7,7 @@
 import { Draggable } from '@entrylabs/tool';
 import { GEHelper } from '../graphicEngine/GEHelper';
 import DataTable from './DataTable';
-import { getInputList } from '../util/videoUtils';
+import { getInputList } from '@entrylabs/legacy-video';
 /**
  * Class for a container.
  * This have view for objects.
@@ -317,7 +317,15 @@ Entry.Container = class Container {
             throw new Error('No picture found');
         }
         pictures[index] = Object.assign(
-            _.pick(picture, ['dimension', 'id', 'filename', 'fileurl', 'name', 'imageType']),
+            _.pick(picture, [
+                'dimension',
+                'id',
+                'filename',
+                'fileurl',
+                'thumbUrl',
+                'name',
+                'imageType',
+            ]),
             { view: pictures[index].view }
         );
     }
@@ -1121,9 +1129,7 @@ Entry.Container = class Container {
 
     blurAllInputs() {
         this.getSceneObjects().map(({ view_ }) => {
-            $(view_)
-                .find('input')
-                .blur();
+            $(view_).find('input').blur();
         });
     }
 
@@ -1350,8 +1356,9 @@ Entry.Container = class Container {
             `${Entry.defaultPath}/uploads/${sound.filename.substring(
                 0,
                 2
-            )}/${sound.filename.substring(2, 4)}/${Entry.soundPath}${sound.filename}${sound.ext ||
-                '.mp3'}`;
+            )}/${sound.filename.substring(2, 4)}/${Entry.soundPath}${sound.filename}${
+                sound.ext || '.mp3'
+            }`;
         sounds[index] = Object.assign(
             _.pick(sound, [
                 'duration',

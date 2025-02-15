@@ -1,5 +1,4 @@
-name: Entry Build and Deploy
-
+name: 'build-and-deploy'
 on:
     push:
         branches:
@@ -13,24 +12,24 @@ jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v2
-            - name: Use Node.js 16.x
-              uses: actions/setup-node@v1
+            - uses: actions/checkout@v4
+            - name: Use Node.js 20.x
+              uses: actions/setup-node@v4
               env:
                   NODE_OPTIONS: '--max-old-space-size=4096'
                   TOOL_NODE_FLAGS: '--max-old-space-size=4096'
               with:
-                  node-version: 16
-            - uses: pnpm/action-setup@v2
+                  node-version: 20
+            - uses: pnpm/action-setup@v3
               name: Install pnpm
               with:
-                  version: 8
+                  version: 9
                   run_install: true
             - name: entry build
               env:
                   NODE_OPTIONS: '--max-old-space-size=4096'
                   TOOL_NODE_FLAGS: '--max-old-space-size=4096'
-              run: pnpm run prod
+              run: pnpm prod
             - name: Define branch name
               id: target_branch
               shell: bash

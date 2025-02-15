@@ -11,6 +11,12 @@ cp -r dist build/
 cp -r extern build/
 cp -r images build/
 cp -r weights build/
+rsync -R package.json build
+rsync -R LICENSE build
+rsync -R NOTICE build
+rsync -R COPYING build
+rsync -R README.md build
+rsync -R README-en.md build
 rsync -R src/playground/block_entry.js build
 rsync -R src/playground/block_entry_mini.js build
 rsync -r -R src/playground/blocks/ build

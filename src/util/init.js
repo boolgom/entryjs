@@ -17,7 +17,7 @@ import './utils';
  * @param {HTMLElement} container for entry workspace or others.
  * @param {Object} options for initialize.
  */
-Entry.init = function(container, options) {
+Entry.init = function (container, options) {
     Entry.assert(typeof options === 'object', 'Init option is not object');
     Entry.assert(!!container, 'root container must be provided');
 
@@ -64,13 +64,13 @@ Entry.init = function(container, options) {
     this.cloudSavable = true;
     this.startTime = new Date().getTime();
 
-    document.onkeydown = function(e) {
+    document.onkeydown = function (e) {
         Entry.dispatchEvent('keyPressed', e);
     };
-    document.onkeyup = function(e) {
+    document.onkeyup = function (e) {
         Entry.dispatchEvent('keyUpped', e);
     };
-    window.onresize = function(e) {
+    window.onresize = function (e) {
         Entry.dispatchEvent('windowResized', e);
     };
     window.onbeforeunload = this.beforeUnload;
@@ -113,9 +113,10 @@ Entry.init = function(container, options) {
     BigNumber.config({ ERRORS: false });
 };
 
-const setDefaultPathsFromOptions = function(options) {
+const setDefaultPathsFromOptions = function (options) {
     const {
         libDir = '/lib',
+        entryDir = '/@entrylabs/entry',
         defaultDir = '',
         soundDir = '',
         blockInjectDir = '',
@@ -123,7 +124,7 @@ const setDefaultPathsFromOptions = function(options) {
         offlineModulePath,
     } = options;
 
-    Entry.mediaFilePath = `${libDir}/entry-js/images/`;
+    Entry.mediaFilePath = `${libDir}${entryDir}/images/`;
     Entry.painterBaseUrl = `${libDir}/literallycanvas-mobile/lib/img`;
     Entry.defaultPath = defaultDir;
     Entry.soundPath = soundDir;
@@ -134,7 +135,7 @@ const setDefaultPathsFromOptions = function(options) {
     Entry.moduleliteBaseUrl = `${Entry.baseUrl}/moduleslite/`;
 };
 
-const setDefaultTheme = function(options) {
+const setDefaultTheme = function (options) {
     const { theme = 'default' } = options;
     if (theme !== 'default') {
         try {
@@ -146,11 +147,11 @@ const setDefaultTheme = function(options) {
     }
 };
 
-Entry.changeContainer = function(container) {
+Entry.changeContainer = function (container) {
     container.appendChild(this.view_);
 };
 
-Entry.loadAudio_ = function(filenames, name) {
+Entry.loadAudio_ = function (filenames, name) {
     if (!window.Audio || !filenames.length) {
         // No browser support for Audio.
         return;
@@ -171,7 +172,7 @@ Entry.loadAudio_ = function(filenames, name) {
  * Initialize function for Entry.
  * @private
  */
-Entry.initialize_ = function() {
+Entry.initialize_ = function () {
     /** @type {Destroyer} */
     this._destroyer = this._destroyer || new Destroyer();
     this._destroyer.destroy();
@@ -249,7 +250,7 @@ Entry.initialize_ = function() {
     }
 };
 
-Entry.disposeContainer = function() {
+Entry.disposeContainer = function () {
     this._destroyer = this._destroyer || new Destroyer();
     this._destroyer.destroy();
     while (this.view_.firstChild) {
@@ -257,7 +258,7 @@ Entry.disposeContainer = function() {
     }
 };
 
-Entry.initSoundQueue_ = function() {
+Entry.initSoundQueue_ = function () {
     Entry.soundQueue = new createjs.LoadQueue();
     Entry.soundQueue.installPlugin(createjs.Sound);
     Entry.soundInstances = new DataSource();
@@ -290,7 +291,7 @@ Entry.initSoundQueue_ = function() {
  * @param {HTMLElement} container for entry workspace or others.
  * @param {string} type for create dom by type.
  */
-Entry.createDom = function(container, type) {
+Entry.createDom = function (container, type) {
     const textCanvasContainer = Entry.createElement('div', 'textCanvasContainer');
     textCanvasContainer.style.display = 'none';
     container.appendChild(textCanvasContainer);
@@ -309,6 +310,9 @@ Entry.createDom = function(container, type) {
             container.appendChild(engineView);
             this.engineView = engineView;
             this.engine.generateView(this.engineView, type);
+            Entry.addEventListener('dispatchEventDidTogglePause', () =>
+                Entry.engine.view_.classList.toggle('paused')
+            );
             break;
         }
         case 'phone': {
@@ -452,7 +456,7 @@ const _createCanvasElement = (className) => {
     return canvas;
 };
 
-Entry.start = function() {
+Entry.start = function () {
     if (Entry.type === 'invisible') {
         return;
     }
@@ -464,7 +468,7 @@ Entry.start = function() {
     Entry.engine.start(this.FPS);
 };
 
-Entry.stop = function() {
+Entry.stop = function () {
     if (Entry.type === 'invisible') {
         return;
     }
@@ -476,7 +480,7 @@ Entry.stop = function() {
  * Parse init options
  * @param {!object} options for parse
  */
-Entry.parseOptions = function(options) {
+Entry.parseOptions = function (options) {
     /** @type {string} */
     this.type = options.type || this.type;
 
@@ -559,6 +563,27 @@ Entry.parseOptions = function(options) {
         this.doCommandAll = false;
     }
 
+    this.backpackDisable = options.backpackDisable;
+    if (this.backpackDisable === undefined) {
+        this.backpackDisable = false;
+    }
+
+    this.exportObjectEnable = options.exportObjectEnable;
+    if (this.exportObjectEnable === undefined) {
+        this.exportObjectEnable = true;
+    }
+
+    this.iframeDomAccess = options.iframeDomAccess;
+    if (this.iframeDomAccess === undefined) {
+        //direct, message, none
+        this.iframeDomAccess = 'direct';
+    }
+
+    this.blockSaveImageEnable = options.blockSaveImageEnable;
+    if (this.blockSaveImageEnable === undefined) {
+        this.blockSaveImageEnable = true;
+    }
+
     this.hasVariableManager = options.hasvariablemanager;
     if (!(this.variableEnable || this.messageEnable || this.listEnable || this.functionEnable)) {
         this.hasVariableManager = false;
@@ -587,14 +612,14 @@ Entry.parseOptions = function(options) {
     this.modalContainer = options.modalContainer || $('body')[0];
 };
 
-Entry.initFonts = function(fonts) {
+Entry.initFonts = function (fonts) {
     this.fonts = fonts;
     if (!fonts) {
         this.fonts = [];
     }
 };
 
-Entry.reloadOption = function(options) {
+Entry.reloadOption = function (options) {
     this.options = options;
     this.parseOptions(options);
     this.playground.applyTabOption();
@@ -603,7 +628,7 @@ Entry.reloadOption = function(options) {
     this.commander.applyOption();
 };
 
-Entry.Utils.initEntryEvent_ = function() {
+Entry.Utils.initEntryEvent_ = function () {
     if (!Entry.events_) {
         Entry.events_ = [];
     }
@@ -620,7 +645,7 @@ Entry.getSoundPath = (sound) =>
  * initialize sound
  * @param {object} sound
  */
-Entry.initSound = function(sound) {
+Entry.initSound = function (sound) {
     if (!sound || !sound.duration || sound.duration == 0) {
         return;
     }
@@ -639,4 +664,18 @@ Entry.initSound = function(sound) {
     setTimeout(() => {
         Entry.soundQueue.loadCallback(sound.path);
     }, 3000);
+};
+
+Entry.loadAllBlocks = function (options = {}) {
+    if (options.aiUtilizeDisable === false || options.aiUtilizeDisable === undefined) {
+        this.aiUtilize = new AIUtilize();
+        this.aiLearning = new AILearning();
+        this.aiUtilize.init();
+        this.aiLearning.init();
+    }
+
+    if (options.expansionDisable === false || options.expansionDisable === undefined) {
+        this.expansion = new Expansion(this.playground);
+        this.expansion.init();
+    }
 };

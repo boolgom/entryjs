@@ -16,7 +16,7 @@ Entry.Popup = class Popup {
         if (className) {
             this.body_.addClass(className);
         }
-        this.body_.bindOnClick(function(e) {
+        this.body_.bindOnClick(function (e) {
             if (e.target == this) {
                 this.popup.remove();
             }
@@ -51,8 +51,18 @@ Entry.Popup = class Popup {
                     Entry.engineContainer.firstChild
                 );
             } else if (Entry.type == 'minimize') {
-                const wrapper = Entry.view_.querySelector('#entryCanvasWrapper');
-                wrapper.insertBefore(this.window_.lastChild, wrapper.firstChild);
+                const child = this.window_.firstChild;
+
+                if (child === Entry.stage.canvas.canvas) {
+                    const wrapper = Entry.view_.querySelector('#entryCanvasWrapper');
+                    wrapper.insertBefore(child, wrapper.firstChild);
+                } else if (child === Entry.engine.runButton[0]) {
+                    Entry.view_
+                        .querySelector('.entryRunButtonBigMinimizeCurtain')
+                        .appendChild(child);
+                } else if (child === Entry.engine.view_) {
+                    Entry.view_.appendChild(child);
+                }
             } else {
                 Entry.engineContainer.insertBefore(
                     this.window_.lastChild,
@@ -64,6 +74,7 @@ Entry.Popup = class Popup {
         Entry.removeElement(this.body_);
         window.popup = null;
         Entry.removeEventListener('windowResized', this.resize);
+        Entry.view_.removeClass('fullscreen');
         Entry.engine.popup = null;
         Entry.windowResized.notify();
         if (

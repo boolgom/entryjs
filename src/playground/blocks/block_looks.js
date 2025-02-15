@@ -718,6 +718,8 @@ module.exports = {
                 func(sprite, script) {
                     const sizeValue = script.getNumberValue('VALUE', script);
                     sprite.setSize(sprite.getSize() + sizeValue);
+                    // sprite.setWidth(sprite.getWidth() * 2);
+                    // sprite.setScaleX(sprite.getScaleX() * 2);
                     return script.callReturn();
                 },
                 syntax: { js: [], py: ['Entry.add_size(%1)'] },
@@ -771,6 +773,88 @@ module.exports = {
                     return script.callReturn();
                 },
                 syntax: { js: [], py: ['Entry.set_size(%1)'] },
+            },
+            stretch_scale_size: {
+                color: EntryStatic.colorSet.block.default.LOOKS,
+                outerLine: EntryStatic.colorSet.block.darken.LOOKS,
+                skeleton: 'basic',
+                statements: [],
+                params: [
+                    {
+                        type: 'Dropdown',
+                        options: [
+                            [Lang.Blocks.width, 'WIDTH'],
+                            [Lang.Blocks.height, 'HEIGHT'],
+                        ],
+                        value: 'WIDTH',
+                        fontSize: 10,
+                        bgColor: EntryStatic.colorSet.block.darken.LOOKS,
+                        arrowColor: EntryStatic.colorSet.arrow.default.DEFAULT,
+                    },
+                    {
+                        type: 'Block',
+                        accept: 'string',
+                        defaultType: 'number',
+                    },
+                    {
+                        type: 'Indicator',
+                        img: 'block_icon/looks_icon.svg',
+                        size: 11,
+                    },
+                ],
+                events: {},
+                def: {
+                    params: [
+                        null,
+                        {
+                            type: 'number',
+                            params: ['10'],
+                        },
+                        null,
+                    ],
+                    type: 'stretch_scale_size',
+                },
+                paramsKeyMap: {
+                    DIMENSION: 0,
+                    VALUE: 1,
+                },
+                class: 'scale',
+                isNotFor: [],
+                func(sprite, script) {
+                    const dimension = script.getValue('DIMENSION', script);
+                    const sizeValue = script.getNumberValue('VALUE', script);
+                    if (dimension === 'WIDTH') {
+                        sprite.setXSize(sprite.getSize() + sizeValue);
+                    } else {
+                        sprite.setYSize(sprite.getSize() + sizeValue);
+                    }
+                    return script.callReturn();
+                },
+            },
+            reset_scale_size: {
+                color: EntryStatic.colorSet.block.default.LOOKS,
+                outerLine: EntryStatic.colorSet.block.darken.LOOKS,
+                skeleton: 'basic',
+                statements: [],
+                params: [
+                    {
+                        type: 'Indicator',
+                        img: 'block_icon/looks_icon.svg',
+                        size: 11,
+                    },
+                ],
+                events: {},
+                def: {
+                    params: [null],
+                    type: 'reset_scale_size',
+                },
+                paramsKeyMap: {},
+                class: 'scale',
+                isNotFor: [],
+                func(sprite, script) {
+                    sprite.resetSize();
+                    return script.callReturn();
+                },
             },
             flip_x: {
                 color: EntryStatic.colorSet.block.default.LOOKS,
@@ -877,8 +961,9 @@ module.exports = {
                                 break;
                             }
 
-                            const frontEntity = selectedObjectContainer.getChildAt(currentIndex + 1)
-                                .entity;
+                            const frontEntity = selectedObjectContainer.getChildAt(
+                                currentIndex + 1
+                            ).entity;
 
                             const offsetCount =
                                 1 +

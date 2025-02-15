@@ -1,5 +1,6 @@
-import VideoUtils from '../../util/videoUtils';
+import VideoUtils from '@entrylabs/legacy-video';
 import clamp from 'lodash/clamp';
+import { GEHelper } from '../../graphicEngine/GEHelper';
 
 Entry.VideoUtils = VideoUtils;
 Entry.AI_UTILIZE_BLOCK.video = {
@@ -16,7 +17,7 @@ Entry.AI_UTILIZE_BLOCK.video = {
     descriptionKey: 'Msgs.ai_utilize_video_description',
     isInitialized: false,
     async init() {
-        await VideoUtils.initialize();
+        await VideoUtils.initialize(GEHelper);
         Entry.AI_UTILIZE_BLOCK.video.isInitialized = true;
     },
     destroy() {
@@ -361,7 +362,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
             async func(sprite, script) {
                 const value = script.getField('VALUE');
                 if (!VideoUtils.isInitialized) {
-                    await VideoUtils.initialize();
+                    await VideoUtils.initialize(GEHelper);
                 }
                 VideoUtils.cameraSwitch(value);
                 return script.callReturn();
@@ -398,7 +399,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 const value = clamp(script.getNumberValue('VALUE'), 0, 100);
                 try {
                     if (!VideoUtils.isInitialized) {
-                        await VideoUtils.initialize();
+                        await VideoUtils.initialize(GEHelper);
                     }
                     VideoUtils.setOptions('transparency', value);
 
@@ -431,7 +432,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
             async func(sprite, script) {
                 const target = script.getField('TARGET');
                 if (!VideoUtils.isInitialized) {
-                    await VideoUtils.initialize();
+                    await VideoUtils.initialize(GEHelper);
                 }
                 VideoUtils.setOptions(target);
                 return script.callReturn();
@@ -465,7 +466,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 const target = script.getField('TARGET');
                 const mode = script.getField('MODE');
                 if (!VideoUtils.isInitialized) {
-                    await VideoUtils.initialize();
+                    await VideoUtils.initialize(GEHelper);
                 }
                 VideoUtils.manageModel(target, mode);
             },
@@ -494,7 +495,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 const criteria = script.getField('CRITERIA');
                 const option = script.getField('OPTION');
                 if (!VideoUtils.isInitialized) {
-                    await VideoUtils.initialize();
+                    await VideoUtils.initialize(GEHelper);
                 }
                 if (option === 'on') {
                     VideoUtils.showIndicator(criteria);
@@ -522,7 +523,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
             async func(sprite, script) {
                 const target = script.getField('TARGET');
                 if (!VideoUtils.isInitialized) {
-                    await VideoUtils.initialize();
+                    await VideoUtils.initialize(GEHelper);
                 }
                 switch (target) {
                     case 'face':
@@ -556,7 +557,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
             async func(sprite, script) {
                 const target = script.getField('TARGET');
                 if (!VideoUtils.isInitialized) {
-                    await VideoUtils.initialize();
+                    await VideoUtils.initialize(GEHelper);
                 }
                 let result = false;
                 VideoUtils.objects.forEach((detected) => {
@@ -591,7 +592,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
             async func(sprite, script) {
                 const target = script.getField('TARGET');
                 if (!VideoUtils.isInitialized) {
-                    await VideoUtils.initialize();
+                    await VideoUtils.initialize(GEHelper);
                     return false;
                 }
                 switch (target) {
@@ -628,7 +629,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 const info = script.getField('INFO');
                 const faces = VideoUtils.faces;
                 if (!VideoUtils.isInitialized) {
-                    await VideoUtils.initialize();
+                    await VideoUtils.initialize(GEHelper);
                 }
                 if (faces.length <= index) {
                     return 0;
@@ -706,7 +707,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 const type = script.getField('TYPE');
                 let detected = VideoUtils.totalMotions;
                 if (!VideoUtils.isInitialized) {
-                    await VideoUtils.initialize();
+                    await VideoUtils.initialize(GEHelper);
                 }
                 if (target === 'self') {
                     detected = VideoUtils.motionDetect(sprite);
@@ -770,7 +771,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 const part = script.getField('PART');
                 const coord = script.getField('COORD');
                 if (!VideoUtils.isInitialized) {
-                    await VideoUtils.initialize();
+                    await VideoUtils.initialize(GEHelper);
                 }
                 if (!VideoUtils.faces) {
                     return 0;
@@ -829,7 +830,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 const part = script.getField('PART');
                 const coord = script.getField('COORD');
                 if (!VideoUtils.isInitialized) {
-                    await VideoUtils.initialize();
+                    await VideoUtils.initialize(GEHelper);
                 }
                 if (!VideoUtils.poses || !VideoUtils.poses.predictions) {
                     return 0;

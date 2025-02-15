@@ -612,10 +612,7 @@ Entry.BlockToPyParser = class {
         if (func.params && func.params.length !== 0) {
             paramResult = func.params.join(', ').trim();
         }
-        result = result
-            .concat('(')
-            .concat(paramResult)
-            .concat(')');
+        result = result.concat('(').concat(paramResult).concat(')');
 
         if (isExpression) {
             // 선언된 함수 사용하는 블록의 경우
@@ -666,10 +663,9 @@ Entry.BlockToPyParser = class {
 
         Entry.TextCodingUtil.initQueue();
 
-        const funcContents = func.content
-            .getEventMap('funcDef')[0]
-            .getThread()
-            .getBlocks();
+        const funcContents = func.content.getEventMap('funcDef')[0].getThread().getBlocks();
+        const statements = func.content.getEventMap('funcDef')[0].getStatements().getBlocks();
+        statements.forEach((value) => funcContents.push(value));
         const defBlock = funcContents.shift();
 
         const funcComment = defBlock.getCommentValue();

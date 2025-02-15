@@ -514,7 +514,7 @@ class TextCodingUtil {
         if (
             activatedExpansionBlocks.length > 0 ||
             activatedUtilizeBlock.length > 0 ||
-            Entry.aiLearning.isLoaded ||
+            Entry.aiLearning?.isLoaded ||
             isNotPythonSupportFunciton ||
             tables.length > 0 ||
             isNotSupportedUsed
@@ -946,7 +946,7 @@ class TextCodingUtil {
                 if (isNaN(data) || (data.length > 1 && String(data)[0] === '0')) {
                     data = `"${data.replace(/"/gi, '\\"')}"`;
                 }
-       
+
                 if (typeof data === 'number' || (data.trim && data.trim().length > 0)) {
                     value += data;
                 }

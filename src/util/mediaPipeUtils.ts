@@ -304,17 +304,7 @@ class MediaPipeUtils {
         }
         this.sourceTarget = target;
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                audio: false,
-                video: {
-                    deviceId: {
-                        exact: inputSource[1],
-                    },
-                    width: this.VIDEO_WIDTH,
-                    height: this.VIDEO_HEIGHT,
-                },
-            });
-            this.stream = stream;
+            this.stream = await this.getVideoStream(inputSource[1]);
             this.video.srcObject = this.stream;
             this.video.width = this.VIDEO_WIDTH;
             this.video.height = this.VIDEO_HEIGHT;
@@ -375,17 +365,45 @@ class MediaPipeUtils {
         this.setForceFlipState(this.flipState, 0);
     }
 
+    async getVideoStream(source: string) {
+        const isMobile = typeof window.orientation !== 'undefined';
+        const isPortrait = isMobile && window.screen.orientation.type.includes('portrait');
+        const width = isPortrait ? this.VIDEO_HEIGHT : this.VIDEO_WIDTH;
+        const height = isPortrait ? this.VIDEO_WIDTH : this.VIDEO_HEIGHT;
+        return await navigator.mediaDevices.getUserMedia({
+            video: {
+                deviceId: { exact: source },
+                width,
+                height,
+            },
+        });
+    }
+
+    registerRotateEvent = () => {
+        const isMobile = typeof window.orientation !== 'undefined';
+        const reloadVideo = async () => {
+            if (this.video.srcObject) {
+                const stream: MediaStream = this.video.srcObject as MediaStream;
+                stream.getTracks().forEach((track) => {
+                    track.stop();
+                });
+            }
+
+            const target = this.sourceTarget || 0;
+            const stream = await this.getVideoStream(this.videoInputList[target][1]);
+            this.video.srcObject = stream;
+            this.stream = stream;
+        };
+        if (isMobile && !window.screen.orientation.onchange) {
+            window.screen.orientation.onchange = reloadVideo;
+        }
+    }
+
     async turnOnWebcam() {
         let stream;
         try {
             const target = this.sourceTarget || 0;
-            stream = await navigator.mediaDevices.getUserMedia({
-                video: {
-                    deviceId: { exact: this.videoInputList[target][1] },
-                    width: this.VIDEO_WIDTH,
-                    height: this.VIDEO_HEIGHT,
-                },
-            });
+            stream = await this.getVideoStream(this.videoInputList[target][1]);
         } catch (err) {
             throw new Entry.Utils.IncompatibleError('IncompatibleError', [
                 Lang.Workspace.check_webcam_error,
@@ -395,6 +413,7 @@ class MediaPipeUtils {
         this.stream = stream;
         try {
             await this.video.play();
+            this.registerRotateEvent();
         } catch {}
         GEHelper.drawVideoElement(this.canvasVideo);
         this.overlayCanvases.forEach((canvas: PIXI.Sprite | createjs.Bitmap) => {
