@@ -71,6 +71,7 @@ module.exports = {
                     js: [],
                     py: [],
                 },
+                wikiClass: 'ai_regression',
             },
             get_regression_predict_1: {
                 color: EntryStatic.colorSet.block.default.AI_LEARNING,
@@ -120,6 +121,7 @@ module.exports = {
                     js: [],
                     py: [],
                 },
+                wikiClass: 'ai_regression',
             },
             get_regression_predict_2: {
                 color: EntryStatic.colorSet.block.default.AI_LEARNING,
@@ -190,6 +192,7 @@ module.exports = {
                     js: [],
                     py: [],
                 },
+                wikiClass: 'ai_regression',
             },
             get_regression_predict_3: {
                 color: EntryStatic.colorSet.block.default.AI_LEARNING,
@@ -281,6 +284,7 @@ module.exports = {
                     js: [],
                     py: [],
                 },
+                wikiClass: 'ai_regression',
             },
             get_regression_predict_4: {
                 color: EntryStatic.colorSet.block.default.AI_LEARNING,
@@ -393,6 +397,7 @@ module.exports = {
                     js: [],
                     py: [],
                 },
+                wikiClass: 'ai_regression',
             },
             get_regression_predict_5: {
                 color: EntryStatic.colorSet.block.default.AI_LEARNING,
@@ -526,6 +531,7 @@ module.exports = {
                     js: [],
                     py: [],
                 },
+                wikiClass: 'ai_regression',
             },
             get_regression_predict_6: {
                 color: EntryStatic.colorSet.block.default.AI_LEARNING,
@@ -680,6 +686,7 @@ module.exports = {
                     js: [],
                     py: [],
                 },
+                wikiClass: 'ai_regression',
             },
             get_regression_accuracy: {
                 color: EntryStatic.colorSet.block.default.AI_LEARNING,
@@ -705,6 +712,7 @@ module.exports = {
                     js: [],
                     py: [],
                 },
+                wikiClass: 'ai_regression',
             },
         };
     },

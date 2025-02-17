@@ -72,6 +72,7 @@ Entry.AI_UTILIZE_BLOCK.audio.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_stt',
         },
         get_microphone_volume: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -98,6 +99,7 @@ Entry.AI_UTILIZE_BLOCK.audio.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_stt',
         },
         speech_to_text_title: {
             skeleton: 'basic_text',
@@ -202,6 +204,7 @@ Entry.AI_UTILIZE_BLOCK.audio.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_stt',
         },
         timed_speech_to_text_convert: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -297,6 +300,7 @@ Entry.AI_UTILIZE_BLOCK.audio.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_stt',
         },
         set_visible_speech_to_text: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -363,6 +367,7 @@ Entry.AI_UTILIZE_BLOCK.audio.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_stt',
         },
         speech_to_text_get_value: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -401,6 +406,7 @@ Entry.AI_UTILIZE_BLOCK.audio.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_stt',
         },
     };
 };

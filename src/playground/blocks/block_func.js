@@ -78,6 +78,7 @@ module.exports = {
                         },
                     ],
                 },
+                wikiClass: 'function',
             },
             set_func_variable: {
                 template: Lang.template.set_variable,
@@ -190,6 +191,7 @@ module.exports = {
                         },
                     ],
                 },
+                wikiClass: 'function',
             },
             get_func_variable: {
                 template: '%1 %2',
@@ -266,6 +268,7 @@ module.exports = {
                     js: [],
                     py: [],
                 },
+                wikiClass: 'function',
             },
             function_create_value: {
                 skeleton: 'basic_create_value',
@@ -326,6 +329,7 @@ module.exports = {
                         },
                     ],
                 },
+                wikiClass: 'function',
             },
             function_general: {
                 skeleton: 'basic',
@@ -406,6 +410,7 @@ module.exports = {
                     Entry.callStackLength--;
                 },
                 syntax: { js: [], py: [''] },
+                wikiClass: 'function',
             },
             function_value: {
                 skeleton: 'basic_string_field',
@@ -482,6 +487,7 @@ module.exports = {
                     return scope.getValue('VALUE', scope);
                 },
                 syntax: { js: [], py: [''] },
+                wikiClass: 'function',
             },
             function_field_label: {
                 skeleton: 'basic_param',
@@ -507,6 +513,7 @@ module.exports = {
                 },
                 //"syntax": {"js": [], "py": ["%1function_field_label#"]}
                 syntax: { js: [], py: ['name'] },
+                wikiClass: 'function',
             },
             function_field_string: {
                 skeleton: 'basic_param',
@@ -537,6 +544,7 @@ module.exports = {
                     type: 'function_field_string',
                 },
                 syntax: { js: [], py: ['value'] },
+                wikiClass: 'function',
             },
             function_field_boolean: {
                 skeleton: 'basic_param',
@@ -567,6 +575,7 @@ module.exports = {
                     type: 'function_field_boolean',
                 },
                 syntax: { js: [], py: ['boolean'] },
+                wikiClass: 'function',
             },
             function_param_string: {
                 skeleton: 'basic_string_field',
@@ -588,6 +597,7 @@ module.exports = {
                     ];
                 },
                 syntax: { js: [], py: [''] },
+                wikiClass: 'function',
             },
             function_param_boolean: {
                 skeleton: 'basic_boolean_field',
@@ -608,6 +618,7 @@ module.exports = {
                     ];
                 },
                 syntax: { js: [], py: [''] },
+                wikiClass: 'function',
             },
             function_create: {
                 skeleton: 'basic_create',
@@ -660,6 +671,7 @@ module.exports = {
                         },
                     ],
                 },
+                wikiClass: 'function',
             },
         };
     },

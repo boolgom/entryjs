@@ -109,6 +109,7 @@ module.exports = {
                     mediaPipeUtils.cameraOnOff(value);
                     return script.callReturn();
                 },
+                wikiClass: 'ai_utilize_video',
             },
             media_pipe_switch_camera: {
                 color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -134,6 +135,7 @@ module.exports = {
                     const value = script.getField('VALUE');
                     return await mediaPipeUtils.changeSource(value);
                 },
+                wikiClass: 'ai_utilize_video',
             },
             check_connected_camera: {
                 color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -158,6 +160,7 @@ module.exports = {
                 async func(sprite, script) {
                     return mediaPipeUtils.videoInputList.length;
                 },
+                wikiClass: 'ai_utilize_video',
             },
             media_pipe_flip_camera: {
                 color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -188,6 +191,7 @@ module.exports = {
                     mediaPipeUtils.setFlipState(flipState);
                     return script.callReturn();
                 },
+                wikiClass: 'ai_utilize_video',
             },
             media_pipe_set_opacity_camera: {
                 color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -225,6 +229,7 @@ module.exports = {
                     mediaPipeUtils.setOpacityCamera(value);
                     return script.callReturn();
                 },
+                wikiClass: 'ai_utilize_video',
             },
             media_pipe_motion_value: {
                 color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -312,6 +317,7 @@ module.exports = {
                         console.log(detected, err);
                     }
                 },
+                wikiClass: 'ai_utilize_video',
             },
         };
     },

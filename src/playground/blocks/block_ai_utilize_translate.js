@@ -445,6 +445,7 @@ Entry.AI_UTILIZE_BLOCK.translate.getBlocks = function() {
                     },
                 ],
             },
+            wikiClass: 'ai_utilize_translate',
         },
         check_language: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -502,6 +503,7 @@ Entry.AI_UTILIZE_BLOCK.translate.getBlocks = function() {
                     },
                 ],
             },
+            wikiClass: 'ai_utilize_translate',
         },
     };
 };
