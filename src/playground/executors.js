@@ -228,11 +228,8 @@ class Executor {
         if (this._callStack.length) {
             this.scope = this._callStack.pop();
         }
-        while (this._callStack.length) {
-            const schema = Entry.block[this.scope.block.type];
-            if (schema.class === 'repeat') {
-                continue;
-            }
+        const schema = Entry.block[this.scope.block.type];
+        if (schema.class === 'condition') {
             this.scope = this._callStack.pop();
         }
         return Entry.STATIC.CONTINUE;
