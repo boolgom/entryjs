@@ -161,6 +161,7 @@ Entry.EXPANSION_BLOCK.disasterAlert.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'disasterAlert',
         },
         get_disaster_alert: {
             color: EntryStatic.colorSet.block.default.EXPANSION,
@@ -207,6 +208,7 @@ Entry.EXPANSION_BLOCK.disasterAlert.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'disasterAlert',
         },
         check_disaster_alert: {
             color: EntryStatic.colorSet.block.default.EXPANSION,
@@ -239,6 +241,7 @@ Entry.EXPANSION_BLOCK.disasterAlert.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'disasterAlert',
         },
     };
 };

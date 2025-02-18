@@ -320,6 +320,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_check_webcam: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -343,6 +344,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_draw_webcam: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -371,6 +373,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_set_camera_opacity_option: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -413,6 +416,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_flip_camera: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -441,6 +445,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_toggle_model: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -474,6 +479,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_toggle_ind: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -507,6 +513,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_number_detect: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -541,6 +548,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_object_detected: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -575,6 +583,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         // 원래는 video_is_model_detected 로 나가야 하나, 해당 부분에 있어서 기존 하위 호환성때문에... 이름을 못바꿈...
         video_is_model_loaded: {
@@ -611,6 +620,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_detected_face_info: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -665,6 +675,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_motion_value: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -748,6 +759,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_face_part_coord: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -807,6 +819,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
         video_body_part_coord: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -863,6 +876,7 @@ Entry.AI_UTILIZE_BLOCK.video.getBlocks = function() {
                 js: [],
                 py: [],
             },
+            wikiClass: 'ai_utilize_video',
         },
     };
 };

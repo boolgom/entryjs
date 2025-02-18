@@ -549,6 +549,7 @@ Entry.EXPANSION_BLOCK.festival.getBlocks = function() {
                     },
                 ],
             },
+            wikiClass: 'festival',
         },
         get_festival_info: {
             color: EntryStatic.colorSet.block.default.EXPANSION,
@@ -630,6 +631,7 @@ Entry.EXPANSION_BLOCK.festival.getBlocks = function() {
                     },
                 ],
             },
+            wikiClass: 'festival',
         },
     };
 };
