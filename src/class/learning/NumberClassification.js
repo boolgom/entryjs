@@ -44,7 +44,6 @@ class NumberClassification {
 
     init({ name, url, table, trainParam, modelId, loadModel }) {
         this.#name = name;
-        this.#trainParam = trainParam;
         this.#table = table;
         this.#trainCallback = (value) => {
             this.#view.setValue(value);
@@ -59,6 +58,8 @@ class NumberClassification {
             this.#chartEnable = true;
         }
         if (this.url !== url || this.modelId !== modelId) {
+            // load시 trainParam에 추가되는 파라미터가 있어서 로드 직전 추가.
+            this.#trainParam = trainParam;
             this.load(url, modelId);
             this.url = url;
             this.modelId = modelId;

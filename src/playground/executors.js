@@ -55,8 +55,7 @@ class Executor {
                 } else if (e.name === 'OfflineError') {
                     Entry.Utils.stopProjectWithToast(this.scope, 'OfflineError', e);
                 } else if (this.isFuncExecutor) {
-                    //function executor
-                    throw e;
+                    Entry.Utils.stopProjectWithToast(this.parentScope, undefined, e);
                 } else if (e.name === 'RangeError') {
                     Entry.toast.alert(
                         Lang.Workspace.RecursiveCallWarningTitle,
@@ -103,7 +102,7 @@ class Executor {
                             Entry.Utils.stopProjectWithToast(this.scope, 'IncompatibleError', e);
                         } else if (this.isFuncExecutor) {
                             //function executor
-                            throw e;
+                            Entry.Utils.stopProjectWithToast(this.parentScope, undefined, e);
                         } else if (e.name === 'RangeError') {
                             Entry.toast.alert(
                                 Lang.Workspace.RecursiveCallWarningTitle,

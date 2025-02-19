@@ -490,9 +490,16 @@ Entry.Code = class Code {
         this.destroyView();
     }
 
+    static waitPauseState = async () => {
+        while (Entry.engine.isState('pause')) {
+            await Entry.Utils.sleep(100);
+        }
+    };
+
     static funcAsyncExecute = async (funcCode, funcExecutor, _promises = []) => {
         await Promise.all(_promises);
         if (Entry.engine.isState('pause')) {
+            await this.waitPauseState();
             return this.funcAsyncExecute(funcCode, funcExecutor, _promises);
         } else if (!Entry.engine.isState('run')) {
             funcCode.removeExecutor(funcExecutor);
@@ -538,6 +545,7 @@ Entry.Code = class Code {
     static funcValueAsyncExecute = async (funcCode, funcExecutor, _promises = []) => {
         await Promise.all(_promises);
         if (Entry.engine.isState('pause')) {
+            await this.waitPauseState();
             return this.funcValueAsyncExecute(funcCode, funcExecutor, _promises);
         } else if (!Entry.engine.isState('run')) {
             funcCode.removeExecutor(funcExecutor);

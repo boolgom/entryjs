@@ -44,6 +44,10 @@ class EntryCommander {
                     command.state.apply(this, args)
                 )
             );
+        } else if (this.checkIsChange(commandType)) {
+            if (Entry.creationChangedEvent) {
+                Entry.creationChangedEvent.notify();
+            }
         }
         const value = command.do.apply(this, args);
         this.doEvent.notify(commandType, args);
@@ -51,7 +55,7 @@ class EntryCommander {
 
         return {
             value,
-            isPass: function(isPass, skipCount) {
+            isPass: function (isPass, skipCount) {
                 this.isPassById(id, isPass, skipCount);
             }.bind(this),
         };
@@ -71,7 +75,7 @@ class EntryCommander {
         }
         return {
             value: command.do.apply(this, args),
-            isPass: function(isPass) {
+            isPass: function (isPass) {
                 this.isPassById(state.id, isPass);
             }.bind(this),
         };
@@ -153,6 +157,10 @@ class EntryCommander {
             skipUndoStack === true ||
             (!Entry.doCommandAll && _.includes(Entry.STATIC.COMMAND_TYPES_NOT_ALWAYS, commandType))
         );
+    }
+
+    checkIsChange(commandType) {
+        return _.includes(Entry.STATIC.COMMAND_TYPES_CHANGE_CHECK, commandType);
     }
 }
 

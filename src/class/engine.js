@@ -82,7 +82,7 @@ Entry.Engine = class Engine {
                     'entryEngineButtonWorkspace_w'
                 )
                 .appendTo(this.view_)
-                .bindOnClick(function(e) {
+                .bindOnClick(function (e) {
                     Entry.engine.toggleSpeedPanel();
                     this.blur();
                 });
@@ -94,7 +94,7 @@ Entry.Engine = class Engine {
                     'entryMaximizeButtonWorkspace_w'
                 )
                 .appendTo(this.view_)
-                .bindOnClick(function(e) {
+                .bindOnClick(function (e) {
                     Entry.engine.toggleFullScreen();
                     this.blur();
                 });
@@ -106,7 +106,7 @@ Entry.Engine = class Engine {
                     'entryCoordinateButtonWorkspace_w'
                 )
                 .appendTo(this.view_)
-                .bindOnClick(function(e) {
+                .bindOnClick(function (e) {
                     if (this.hasClass('toggleOn')) {
                         this.removeClass('toggleOn');
                     } else {
@@ -136,7 +136,7 @@ Entry.Engine = class Engine {
             this.addButton = Entry.createElement('button')
                 .addClass('entryEngineButtonWorkspace_w')
                 .addClass('entryAddButtonWorkspace_w')
-                .bindOnClick(function() {
+                .bindOnClick(function () {
                     Entry.do('addObjectButtonClick');
                     this.blur();
                 })
@@ -164,7 +164,7 @@ Entry.Engine = class Engine {
                 .addClass('entryPauseButtonWorkspace_w')
                 .addClass('entryRemove')
                 .appendTo(this.buttonWrapper)
-                .bindOnClick(function(e) {
+                .bindOnClick(function (e) {
                     this.blur();
                     Entry.engine.togglePause();
                 });
@@ -174,7 +174,7 @@ Entry.Engine = class Engine {
                 .addClass('entryPauseButtonWorkspace_full')
                 .addClass('entryRemove')
                 .appendTo(this.buttonWrapper)
-                .bindOnClick(function() {
+                .bindOnClick(function () {
                     this.blur();
                     Entry.engine.togglePause();
                 });
@@ -191,7 +191,7 @@ Entry.Engine = class Engine {
                 .addClass('entryEngineButtonWorkspace_w')
                 .addClass('entryStopButtonWorkspace_w2')
                 .addClass('entryRemove')
-                .bindOnClick(function() {
+                .bindOnClick(function () {
                     this.blur();
                     Entry.engine.toggleStop();
                 })
@@ -215,7 +215,7 @@ Entry.Engine = class Engine {
             this.coordinateButton.addClass('entryEngineButtonMinimize');
             this.coordinateButton.addClass('entryCoordinateButtonMinimize');
             this.view_.appendChild(this.coordinateButton);
-            this.coordinateButton.bindOnClick(function(e) {
+            this.coordinateButton.bindOnClick(function (e) {
                 if (this.hasClass('toggleOn')) {
                     this.removeClass('toggleOn');
                 } else {
@@ -230,7 +230,7 @@ Entry.Engine = class Engine {
             this.stopButton.addClass('entryRemove');
             this.stopButton.textContent = Lang.Workspace.stop;
             this.view_.appendChild(this.stopButton);
-            this.stopButton.bindOnClick(function(e) {
+            this.stopButton.bindOnClick(function (e) {
                 this.blur();
                 Entry.engine.toggleStop();
             });
@@ -241,7 +241,7 @@ Entry.Engine = class Engine {
             this.pauseButton.addClass('entryPauseButtonMinimize');
             this.pauseButton.addClass('entryRemove');
             this.view_.appendChild(this.pauseButton);
-            this.pauseButton.bindOnClick(function(e) {
+            this.pauseButton.bindOnClick(function (e) {
                 this.blur();
                 Entry.engine.togglePause();
             });
@@ -474,11 +474,9 @@ Entry.Engine = class Engine {
             this.speedPanelOn = false;
             this.speedButton.removeClass('on');
 
-            $(this.speedLabel_)
-                .parent()
-                .remove();
+            $(this.speedLabel_).parent().remove();
             delete this.speedLabel_;
-            $(this.speedProgress_).fadeOut(null, function(e) {
+            $(this.speedProgress_).fadeOut(null, function (e) {
                 $(this).remove();
                 delete this.speedProgress_;
             });
@@ -786,7 +784,7 @@ Entry.Engine = class Engine {
         this.setEnableInputField(false);
         Entry.dispatchEvent('stop');
         Entry.stage.hideInputField();
-        (function(w) {
+        (function (w) {
             w && w.getMode() === Entry.Workspace.MODE_VIMBOARD && w.codeToText();
         })(Entry.getMainWS());
         Entry.dispatchEvent('dispatchEventDidToggleStop');
@@ -1025,6 +1023,7 @@ Entry.Engine = class Engine {
         }
 
         if (!this.popup) {
+            Entry.view_.addClass('fullscreen');
             this.popup = new Entry.Popup(popupClassName);
             if (Entry.engine.speedPanelOn) {
                 Entry.engine.toggleSpeedPanel();
@@ -1047,23 +1046,31 @@ Entry.Engine = class Engine {
             }
 
             if (window.top !== window.self) {
-                window.top.addEventListener('pointermove', this.copyEvent);
-                window.top.addEventListener('pointerdown', this.copyEvent);
-                window.top.addEventListener('pointerup', this.copyEvent);
-                window.top.addEventListener('pointerupoutside', this.copyEvent);
-                window.top.addEventListener('pointercancel', this.copyEvent);
-                window.top.addEventListener('mouseup', this.copyEvent);
-                window.top.addEventListener('mousemove', this.copyEvent);
+                if (Entry.iframeDomAccess === 'direct') {
+                    window.top.addEventListener('pointermove', this.copyEvent);
+                    window.top.addEventListener('pointerdown', this.copyEvent);
+                    window.top.addEventListener('pointerup', this.copyEvent);
+                    window.top.addEventListener('pointerupoutside', this.copyEvent);
+                    window.top.addEventListener('pointercancel', this.copyEvent);
+                    window.top.addEventListener('mouseup', this.copyEvent);
+                    window.top.addEventListener('mousemove', this.copyEvent);
+                } else if (Entry.iframeDomAccess === 'message') {
+                    window.top.postMessage({ type: 'toggleFullScreen', value: 'addEvent' }, '*');
+                }
             }
         } else {
             if (window.top !== window.self) {
-                window.top.removeEventListener('pointermove', this.copyEvent);
-                window.top.removeEventListener('pointerdown', this.copyEvent);
-                window.top.removeEventListener('pointerup', this.copyEvent);
-                window.top.removeEventListener('pointerupoutside', this.copyEvent);
-                window.top.removeEventListener('pointercancel', this.copyEvent);
-                window.top.removeEventListener('mouseup', this.copyEvent);
-                window.top.removeEventListener('mousemove', this.copyEvent);
+                if (Entry.iframeDomAccess === 'direct') {
+                    window.top.removeEventListener('pointermove', this.copyEvent);
+                    window.top.removeEventListener('pointerdown', this.copyEvent);
+                    window.top.removeEventListener('pointerup', this.copyEvent);
+                    window.top.removeEventListener('pointerupoutside', this.copyEvent);
+                    window.top.removeEventListener('pointercancel', this.copyEvent);
+                    window.top.removeEventListener('mouseup', this.copyEvent);
+                    window.top.removeEventListener('mousemove', this.copyEvent);
+                } else if (Entry.iframeDomAccess === 'message') {
+                    window.top.postMessage({ type: 'toggleFullScreen', value: 'removeEvent' }, '*');
+                }
             }
             this.popup.remove();
             this.popup = null;
@@ -1275,7 +1282,7 @@ Entry.Engine = class Engine {
         this.execPromises = this.trimPromiseExecutor();
         const index = this.execPromises.length;
         promises.forEach((promise, i) => {
-            const execPromise = (async function() {
+            const execPromise = (async function () {
                 const result = await promise;
                 const j = Entry.engine.execPromises.indexOf(execPromise);
                 Entry.engine.execPromises[j] = result;

@@ -5,13 +5,6 @@
     border-top: 1pt solid #ebeff1;
 }
 
-.entryEngineMinimize {
-    height: 35px;
-    width: 100%;
-    background-color: white;
-    border-top: 1pt solid #ebeff1;
-}
-
 .entryEngineWorkspace_w {
     position: relative;
     overflow: hidden;
@@ -202,52 +195,6 @@
     background-position: center;
 }
 
-.entryEngineButtonMinimize {
-    border: none;
-    outline: none;
-    width: 25px;
-    height: 35px;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.entryRunButtonBigMinimize {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 111px;
-    height: 111px;
-    margin: -55px 0 0 -55px;
-    border: none;
-    padding: 0;
-    background-image: url('@{image_url}play_btn.png');
-    background-repeat: no-repeat;
-    background-position: 40px center;
-    background-color: rgba(0, 0, 0, 0.5);
-    .border-radius(55px);
-    z-index: 100;
-    cursor: pointer;
-}
-
-.hidePlayBtn .entryRunButtonBigMinimize {
-    display: none;
-}
-
-@media screen and (max-width: 500px) {
-    .entryRunButtonBigMinimize {
-        width: 80px;
-        height: 80px;
-        margin: -40px 0 0 -40px;
-        background-position: 32px center;
-        background-size: 25px;
-    }
-}
-
-.entryRunButtonBigMinimize:hover {
-    opacity: 0.8;
-}
-
 .entryEngineButtonWorkspace_w {
     border: none;
     outline: none;
@@ -313,15 +260,6 @@
     text-align: center;
 }
 
-.entryMouseViewMinimize {
-    font-size: 9pt;
-    margin: 0 auto;
-    width: 40%;
-    color: @lightBora;
-    line-height: 35px;
-    text-align: center;
-}
-
 .entryMouseViewWorkspace_w {
     height: 32px;
     font-size: 12px;
@@ -353,18 +291,6 @@
     float: left;
     margin-left: 5px;
     .backgroundImage('fullscreen_edit.png');
-}
-
-.entryMaximizeButtonMinimize {
-    float: right;
-    margin-right: 5px;
-    background-image: url('@{image_url}zoom_in_btn.png');
-}
-
-.entryPopupWindow > .entryEngineMinimize > .entryMaximizeButtonMinimize {
-    float: right;
-    margin-right: 5px;
-    background-image: url('@{image_url}zoom_out_btn.png');
 }
 
 .entryMaximizeButtonPhone {
@@ -508,11 +434,6 @@
     .backgroundImage('coordinates_edit.png');
 }
 
-.entryCoordinateButtonMinimize {
-    float: right;
-    .backgroundImage('grid.png');
-}
-
 .entryCoordinateButtonWorkspace_w {
     float: right;
     margin-top: 4px;
@@ -547,14 +468,6 @@
     font-size: 9pt;
     color: #61abdb;
     .backgroundImage('playbutton_edit.png');
-}
-
-.entryRunButtonMinimize {
-    display: none;
-    float: left;
-    width: 65px;
-    font-size: 9pt;
-    color: @lightBora;
 }
 
 .entryAddButtonWorkspace_w,
@@ -646,17 +559,6 @@
     font-size: 9pt;
     color: #61abdb;
     .backgroundImage('stopbutton_pause.png');
-}
-
-.entryStopButtonMinimize {
-    float: left;
-    width: 80px;
-    background-position: 7px 50%;
-    padding-right: 10px;
-    text-align: right;
-    font-size: 9pt;
-    color: @lightBora;
-    .backgroundImage('stop_btn.png');
 }
 
 .entryStopButtonWorkspace_w {
@@ -770,16 +672,6 @@
 
 .art_project_name:hover {
     border: 1px solid #b4b4b4 !important;
-}
-
-.entryPauseButtonMinimize {
-    float: left;
-    background-image: url('@{image_url}pause_btn.png');
-    width: auto;
-    background-position: left;
-    padding-left: 17px;
-    color: #6c5af2;
-    font-size: 9pt;
 }
 
 .tablet {

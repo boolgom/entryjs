@@ -202,13 +202,13 @@ Entry.Board = class Board {
     _addControl() {
         const dom = this.svgDom;
         const that = this;
-        dom.mousedown(function() {
+        dom.mousedown(function () {
             that.onMouseDown(...arguments);
         });
-        dom.bind('touchstart', function() {
+        dom.bind('touchstart', function () {
             that.onMouseDown(...arguments);
         });
-        dom.on('wheel', function() {
+        dom.on('wheel', function () {
             that.mouseWheel(...arguments);
         });
 
@@ -785,12 +785,24 @@ Entry.Board = class Board {
             if (contentBlock.view.dragInstance) {
                 continue;
             }
-            if (content.acceptType !== targetType && content.acceptType !== 'boolean') {
-                continue;
-            }
             const startX = cursorX + content.box.x * this.scale;
             const startY = cursorY + content.box.y + (blockView.contentHeight % 1000) * -0.5;
             const endY = cursorY + content.box.y + content.box.height;
+            if (content.acceptType !== targetType && content.acceptType !== 'boolean') {
+                if (targetType === 'boolean') {
+                    const contentBlockView = contentBlock.view;
+                    metaData = metaData.concat(
+                        this._getFieldBlockMetaData(
+                            contentBlockView,
+                            startX + contentBlockView.contentPos.x * this.scale,
+                            startY + contentBlockView.contentPos.y,
+                            zIndex,
+                            targetType
+                        )
+                    );
+                }
+                continue;
+            }
             if (content.acceptType === targetType) {
                 metaData.push({
                     point: startY,
@@ -1211,7 +1223,10 @@ Entry.Board = class Board {
             },
             {
                 activated:
-                    Entry.type === 'workspace' && Entry.Utils.isChrome() && !Entry.isMobile(),
+                    Entry.blockSaveImageEnable &&
+                    Entry.type === 'workspace' &&
+                    Entry.Utils.isChrome() &&
+                    !Entry.isMobile(),
                 option: {
                     text: Lang.Menus.save_as_image_all,
                     enable: !this.readOnly,
@@ -1340,7 +1355,7 @@ Entry.Board = class Board {
             return this.workspace.trashcan.svgGroup;
         } else if (key === 'coord') {
             return {
-                getBoundingClientRect: function() {
+                getBoundingClientRect: function () {
                     const halfWidth = 20;
                     const boardOffset = this.relativeOffset;
                     return {

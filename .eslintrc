@@ -47,14 +47,6 @@
         "no-loop-func": "warn",
         "no-new-func": "warn",
         "prefer-rest-params": "warn",
-        "space-before-function-paren": [
-            "warn",
-            {
-                "anonymous": "always",
-                "named": "never",
-                "asyncArrow": "always",
-            },
-        ],
         "prefer-arrow-callback": "warn",
         "template-curly-spacing": "warn",
         "no-param-reassign": ["warn", { "props": false }],

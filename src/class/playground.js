@@ -1274,8 +1274,8 @@ Entry.Playground = class Playground {
             element.picture = picture;
 
             const thumbnailView = $element.find(`#t_${picture.id}`)[0];
-            if (picture.fileurl) {
-                thumbnailView.style.backgroundImage = `url("${picture.fileurl}")`;
+            if (picture.thumbUrl || picture.fileurl) {
+                thumbnailView.style.backgroundImage = `url("${picture.thumbUrl || picture.fileurl}")`;
             } else {
                 // deprecated
                 const fileName = picture.filename;
@@ -1838,7 +1838,7 @@ Entry.Playground = class Playground {
                     },
                 },
                 {
-                    text: Lang.Workspace.context_download,
+                    text: Lang.Workspace.context_download_image,
                     callback() {
                         Entry.playground.downloadPicture(picture.id);
                     },
@@ -1870,8 +1870,8 @@ Entry.Playground = class Playground {
             }
         });
 
-        if (picture.fileurl) {
-            thumbnailView.style.backgroundImage = `url("${picture.fileurl}")`;
+        if (picture.thumbUrl || picture.fileurl) {
+            thumbnailView.style.backgroundImage = `url("${picture.thumbUrl || picture.fileurl}")`;
         } else {
             // deptecated
             const fileName = picture.filename;
@@ -1979,7 +1979,7 @@ Entry.Playground = class Playground {
                     },
                 },
                 {
-                    text: Lang.Workspace.context_download,
+                    text: Lang.Workspace.context_download_sound,
                     callback() {
                         Entry.playground.downloadSound(sound.id);
                     },
