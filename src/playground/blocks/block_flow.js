@@ -326,30 +326,6 @@ module.exports = {
                 },
                 syntax: { js: [], py: ['break'] },
             },
-            continue_repeat: {
-                color: EntryStatic.colorSet.block.default.FLOW,
-                outerLine: EntryStatic.colorSet.block.darken.FLOW,
-                skeleton: 'basic',
-                statements: [],
-                params: [
-                    {
-                        type: 'Indicator',
-                        img: 'block_icon/flow_icon.svg',
-                        size: 11,
-                    },
-                ],
-                events: {},
-                def: {
-                    params: [null],
-                    type: 'continue_repeat',
-                },
-                class: 'repeat',
-                isNotFor: [],
-                func(sprite, script) {
-                    return this.executor.continueLoop();
-                },
-                syntax: { js: [], py: ['continue'] },
-            },
             _if: {
                 color: EntryStatic.colorSet.block.default.FLOW,
                 outerLine: EntryStatic.colorSet.block.darken.FLOW,

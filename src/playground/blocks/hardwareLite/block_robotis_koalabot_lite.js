@@ -211,6 +211,7 @@ let camera_id_for_use = 0;
                 'robotis_koalabot_lite_icon_screen_animal_human',
                 'robotis_koalabot_lite_icon_screen_object_tool',
                 'robotis_koalabot_lite_icon_screen_vehicle_number',
+                'robotis_koalabot_lite_icon_screen_game_character',
                 'robotis_koalabot_lite_text_screen',
                 'robotis_koalabot_lite_text_screen_redraw',
                 'robotis_koalabot_lite_pixel',
@@ -275,7 +276,7 @@ let camera_id_for_use = 0;
             this.timeouts = [];
             this.__removeAllTimeouts();
             this.robotisBuffer = [];
-            this.robotisBuffer.push([INST_WRITE, 2100, 1, 1]);
+            this.robotisBuffer.push([INST_WRITE, 2100, 1, 2]); // 값 2는 코알라 얼굴이 뜨도록(펌웨어는 v1.15.4부터)
             camera_id_for_use = 0;
             if (Entry.hwLite && Entry.hwLite.serial) {
                 Entry.hwLite.serial.update();
@@ -491,6 +492,8 @@ let camera_id_for_use = 0;
                             '화면에 [물건/도구]중 %1 (%2, %3)위치에 %4 크기로 표시 %5',
                         robotis_koalabot_lite_icon_screen_vehicle_number:
                             '화면에 [탈것/숫자]중 %1 (%2, %3)위치에 %4 크기로 표시 %5',
+                        robotis_koalabot_lite_icon_screen_game_character:
+                            '화면에 [게임/캐릭터]중 %1를 (%2, %3)위치에 %4 크기로 표시 %5',
                         robotis_koalabot_lite_text_screen:
                             '화면에 %1 (%2, %3)위치에 %4 로 %5으로 표시 %6',
                         robotis_koalabot_lite_text_screen_redraw:
@@ -604,6 +607,8 @@ let camera_id_for_use = 0;
                             '화면에 [물건/도구]중 특정 아이콘을 표시할 위치와 크기를 설정\nX좌표: -160 ~ 160\nY좌표: -120 ~ 120\n크기: 0 ~ 200',
                         robotis_koalabot_lite_icon_screen_vehicle_number:
                             '화면에 [탈것/숫자]중 특정 아이콘을 표시할 위치와 크기를 설정\nX좌표: -160 ~ 160\nY좌표: -120 ~ 120\n크기: 0 ~ 200',
+                        robotis_koalabot_lite_icon_screen_game_character:
+                            '화면에 [게임/캐릭터]중 특정 아이콘을 표시할 위치와 크기를 설정\nX좌표: -160 ~ 160\nY좌표: -120 ~ 120\n크기: 0 ~ 200',
                         robotis_koalabot_lite_text_screen:
                             '화면에 지정한 문구를 표시할 위치와 폰트크기, 색상을 설정\nX좌표: -160 ~ 160\nY좌표: -120 ~ 120',
                         robotis_koalabot_lite_text_screen_redraw:
@@ -929,7 +934,7 @@ let camera_id_for_use = 0;
                         robotis_icon_vehicle_number_11: '로켓',
                         robotis_icon_vehicle_number_12: '어선',
                         robotis_icon_vehicle_number_13: '여객선',
-                        robotis_icon_vehicle_number_14: '잠수항(왼쪽)',
+                        robotis_icon_vehicle_number_14: '잠수함(왼쪽)',
                         robotis_icon_vehicle_number_15: '잠수함(오른쪽)',
                         robotis_icon_vehicle_number_16: '비행기(왼쪽)',
                         robotis_icon_vehicle_number_17: '비행기(오른쪽)',
@@ -954,6 +959,50 @@ let camera_id_for_use = 0;
                         robotis_icon_vehicle_number_36: '8',
                         robotis_icon_vehicle_number_37: '9',
                         robotis_icon_vehicle_number_38: '10',
+                        robotis_icon_game_character_1: '알쥐(정면)',
+                        robotis_icon_game_character_2: '알쥐(왼쪽)',
+                        robotis_icon_game_character_3: '알쥐(오른쪽)',
+                        robotis_icon_game_character_4: '알라(정면)',
+                        robotis_icon_game_character_5: '알라(왼쪽))',
+                        robotis_icon_game_character_6: '알라(오른쪽)',
+                        robotis_icon_game_character_7: '유령',
+                        robotis_icon_game_character_8: '괴물',
+                        robotis_icon_game_character_9: '바이러스',
+                        robotis_icon_game_character_10: '세균',
+                        robotis_icon_game_character_11: '나는 알쥐(왼쪽)',
+                        robotis_icon_game_character_12: '나는 알쥐(오른쪽)',
+                        robotis_icon_game_character_13: '나는 알쥐(정면)',
+                        robotis_icon_game_character_14: '메달',
+                        robotis_icon_game_character_15: '돈(G)',
+                        robotis_icon_game_character_16: '돈($)',
+                        robotis_icon_game_character_17: '하트',
+                        robotis_icon_game_character_18: '폭탄',
+                        robotis_icon_game_character_19: '불',
+                        robotis_icon_game_character_20: '구름1',
+                        robotis_icon_game_character_21: '구름2',
+                        robotis_icon_game_character_22: '포탄1',
+                        robotis_icon_game_character_23: '포탄2',
+                        robotis_icon_game_character_24: '대포(수평)',
+                        robotis_icon_game_character_25: '대포(수직)',
+                        robotis_icon_game_character_26: '레이저(수직)',
+                        robotis_icon_game_character_27: '게이저(수평)',
+                        robotis_icon_game_character_28: '화살(수평)',
+                        robotis_icon_game_character_29: '화살(수직)',
+                        robotis_icon_game_character_30: '미사일(U)',
+                        robotis_icon_game_character_31: '미사일(D)',
+                        robotis_icon_game_character_32: '미사일(L)',
+                        robotis_icon_game_character_33: '미사일(R)',
+                        robotis_icon_game_character_34: '낙하산',
+                        robotis_icon_game_character_35: '폭발1',
+                        robotis_icon_game_character_36: '폭발2',
+                        robotis_icon_game_character_37: '조준경',
+                        robotis_icon_game_character_38: '가위',
+                        robotis_icon_game_character_39: '바위',
+                        robotis_icon_game_character_40: '보',
+                        robotis_icon_game_character_41: '걷는 사람1',
+                        robotis_icon_game_character_42: '걷는 사람2',
+                        robotis_icon_game_character_43: '뛰는 사람1',
+                        robotis_icon_game_character_44: '뛰는 사람2',
                         robotis_speed_fast: '빠른 속도',
                         robotis_speed_midium: '중간 속도',
                         robotis_speed_slow: '느린 속도',
@@ -1085,6 +1134,8 @@ let camera_id_for_use = 0;
                             'Display %1 from [Object/Tool] at position (%2, %3) in size %4 %5',
                         robotis_koalabot_lite_icon_screen_vehicle_number:
                             'Display %1 from [Vehicle/Number] at position (%2, %3) in size %4 %5',
+                        robotis_koalabot_lite_icon_screen_game_character:
+                            'Display %1 from [Game/Character] at position (%2, %3) in size %4 %5',
                         robotis_koalabot_lite_text_screen:
                             'Display %1 in %5 in %4 at (%2, %3) on the screen %6',
                         robotis_koalabot_lite_text_screen_redraw:
@@ -1204,6 +1255,8 @@ let camera_id_for_use = 0;
                             'Set the position and size of a specific icon in [object/tool] on the screen\nX coordinate: -160 ~ 160\nY coordinate: -120 ~ 120\nSize: 0 ~ 200',
                         robotis_koalabot_lite_icon_screen_vehicle_number:
                             'Set the position and size of a specific icon in [vehicle/number] on the screen\nX coordinate: -160 ~ 160\nY coordinate: -120 ~ 120\nSize: 0 ~ 200',
+                        robotis_koalabot_lite_icon_screen_game_character:
+                            'Set the position and size of a specific icon in [game/character] on the screen\nX coordinate: -160 ~ 160\nY coordinate: -120 ~ 120\nSize: 0 ~ 200',
                         robotis_koalabot_lite_text_screen:
                             'Set the position, font size, and color of the specified text on the screen\nX coordinate: -160 ~ 160\nY coordinate: -120 ~ 120',
                         robotis_koalabot_lite_text_screen_redraw:
@@ -1558,6 +1611,50 @@ let camera_id_for_use = 0;
                         robotis_icon_vehicle_number_36: '8',
                         robotis_icon_vehicle_number_37: '9',
                         robotis_icon_vehicle_number_38: '10',
+                        robotis_icon_game_character_1: 'R-GEE(F)',
+                        robotis_icon_game_character_2: 'R-GEE(L)',
+                        robotis_icon_game_character_3: 'R-GEE(R)',
+                        robotis_icon_game_character_4: 'KODALA(F)',
+                        robotis_icon_game_character_5: 'KODALA(L))',
+                        robotis_icon_game_character_6: 'KODALA(R)',
+                        robotis_icon_game_character_7: 'Ghost',
+                        robotis_icon_game_character_8: 'Monster',
+                        robotis_icon_game_character_9: 'Virus',
+                        robotis_icon_game_character_10: 'Bacteria',
+                        robotis_icon_game_character_11: 'Flying R-GEE (L)',
+                        robotis_icon_game_character_12: 'Flying R-GEE (R)',
+                        robotis_icon_game_character_13: 'Flying R-GEE (F)',
+                        robotis_icon_game_character_14: 'Medal',
+                        robotis_icon_game_character_15: 'Money (G)',
+                        robotis_icon_game_character_16: 'Money ($)',
+                        robotis_icon_game_character_17: 'Heart',
+                        robotis_icon_game_character_18: 'Bomb',
+                        robotis_icon_game_character_19: 'Fire',
+                        robotis_icon_game_character_20: 'Cloud 1',
+                        robotis_icon_game_character_21: 'Cloud 2',
+                        robotis_icon_game_character_22: 'Shell 1',
+                        robotis_icon_game_character_23: 'Shell 2',
+                        robotis_icon_game_character_24: 'Cannon (Horizontal)',
+                        robotis_icon_game_character_25: 'Cannon (Vertical)',
+                        robotis_icon_game_character_26: 'Laser (Vertical)',
+                        robotis_icon_game_character_27: 'Laser (Horizontal)',
+                        robotis_icon_game_character_28: 'Arrow (Horizontal)',
+                        robotis_icon_game_character_29: 'Arrow (Vertical)',
+                        robotis_icon_game_character_30: 'Missile (Up)',
+                        robotis_icon_game_character_31: 'Missile (Down)',
+                        robotis_icon_game_character_32: 'Missile (Left)',
+                        robotis_icon_game_character_33: 'Missile (Right)',
+                        robotis_icon_game_character_34: 'Parachute',
+                        robotis_icon_game_character_35: 'Explosion 1',
+                        robotis_icon_game_character_36: 'Explosion 2',
+                        robotis_icon_game_character_37: 'Scope',
+                        robotis_icon_game_character_38: 'Scissors',
+                        robotis_icon_game_character_39: 'Rock',
+                        robotis_icon_game_character_40: 'Paper',
+                        robotis_icon_game_character_41: 'Walking Person 1',
+                        robotis_icon_game_character_42: 'Walking Person 2',
+                        robotis_icon_game_character_43: 'Running Person 1',
+                        robotis_icon_game_character_44: 'Running Person 2',  
                         robotis_speed_fast: 'Fast Speed',
                         robotis_speed_midium: 'Medium Speed',
                         robotis_speed_slow: 'Slow Speed',
@@ -4118,6 +4215,159 @@ let camera_id_for_use = 0;
                         py: ['Koalabot.icon_screen_vehicle_and_number(%1,%2,%3,%4)'],
                     },
                 },
+                robotis_koalabot_lite_icon_screen_game_character: {
+                    color: EntryStatic.colorSet.block.default.HARDWARE,
+                    outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+                    skeleton: 'basic',
+                    statements: [],
+                    params: [
+                        {
+                            type: 'Dropdown',
+                            options: [
+                                [Lang.Blocks.robotis_icon_game_character_1, '11520'], // 알쥐(정면)
+                                [Lang.Blocks.robotis_icon_game_character_2, '11521'], // 알쥐(왼쪽)
+                                [Lang.Blocks.robotis_icon_game_character_3, '11522'], // 알쥐(오른쪽)
+                                [Lang.Blocks.robotis_icon_game_character_4, '11523'], // 알라(정면)
+                                [Lang.Blocks.robotis_icon_game_character_5, '11524'], // 알라(왼쪽)
+                                [Lang.Blocks.robotis_icon_game_character_6, '11525'], // 알라(오른쪽)
+                                [Lang.Blocks.robotis_icon_game_character_7, '11526'], // 유령
+                                [Lang.Blocks.robotis_icon_game_character_8, '11527'], // 괴물
+                                [Lang.Blocks.robotis_icon_game_character_9, '11528'], // 바이러스
+                                [Lang.Blocks.robotis_icon_game_character_10, '11529'], // 세균
+                                [Lang.Blocks.robotis_icon_game_character_11, '11784'], // 나는 알쥐(L)
+                                [Lang.Blocks.robotis_icon_game_character_12, '11785'], // 나는 알쥐(R)
+                                [Lang.Blocks.robotis_icon_game_character_13, '11786'], // 나는 알쥐(U)
+                                [Lang.Blocks.robotis_icon_game_character_14, '11530'], // 메달
+                                [Lang.Blocks.robotis_icon_game_character_15, '11531'], // 돈(G)
+                                [Lang.Blocks.robotis_icon_game_character_16, '11532'], // 돈($)
+                                [Lang.Blocks.robotis_icon_game_character_17, '11533'], // 하트
+                                [Lang.Blocks.robotis_icon_game_character_18, '11534'], // 포탄
+                                [Lang.Blocks.robotis_icon_game_character_19, '11535'], // 불
+                                [Lang.Blocks.robotis_icon_game_character_20, '11803'], // 구름1
+                                [Lang.Blocks.robotis_icon_game_character_21, '11804'], // 구름2
+                                [Lang.Blocks.robotis_icon_game_character_22, '11536'], // 포탄1
+                                [Lang.Blocks.robotis_icon_game_character_23, '11791'], // 포탄2
+                                [Lang.Blocks.robotis_icon_game_character_24, '11537'], // 대포(수평)
+                                [Lang.Blocks.robotis_icon_game_character_25, '11538'], // 대포(수직)
+                                [Lang.Blocks.robotis_icon_game_character_27, '11540'], // 레이저(수평)
+                                [Lang.Blocks.robotis_icon_game_character_26, '11539'], // 레이저(수직)
+                                [Lang.Blocks.robotis_icon_game_character_28, '11541'], // 화살(수평)
+                                [Lang.Blocks.robotis_icon_game_character_29, '11542'], // 화살(수직)
+                                [Lang.Blocks.robotis_icon_game_character_30, '11792'], // 미사일(U)
+                                [Lang.Blocks.robotis_icon_game_character_31, '11793'], // 미사일(D)
+                                [Lang.Blocks.robotis_icon_game_character_32, '11794'], // 미사일(L)
+                                [Lang.Blocks.robotis_icon_game_character_33, '11795'], // 미사일(R)
+                                [Lang.Blocks.robotis_icon_game_character_34, '11796'], // 낙하산
+                                [Lang.Blocks.robotis_icon_game_character_35, '11543'], // 폭발1
+                                [Lang.Blocks.robotis_icon_game_character_36, '11544'], // 폭발2
+                                [Lang.Blocks.robotis_icon_game_character_37, '11810'], // 조준경
+                                [Lang.Blocks.robotis_icon_game_character_38, '11545'], // 가위
+                                [Lang.Blocks.robotis_icon_game_character_39, '11546'], // 바위
+                                [Lang.Blocks.robotis_icon_game_character_40, '11547'], // 보
+                                [Lang.Blocks.robotis_icon_game_character_41, '11797'], // 걷는 사람1
+                                [Lang.Blocks.robotis_icon_game_character_42, '11798'], // 걷는 사람2
+                                [Lang.Blocks.robotis_icon_game_character_43, '11799'], // 뛰는 사람1
+                                [Lang.Blocks.robotis_icon_game_character_44, '11800'], // 뛰는 사람2
+                            ],
+                            value: '11520',
+                            fontSize: 11,
+                            bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                            arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                        },
+                        {
+                            type: 'Block',
+                            accept: 'string',
+                        },
+                        {
+                            type: 'Block',
+                            accept: 'string',
+                        },
+                        {
+                            type: 'Block',
+                            accept: 'string',
+                        },
+                        {
+                            type: 'Indicator',
+                            img: 'block_icon/hardware_icon.svg',
+                            size: 12,
+                        },
+                    ],
+                    events: {},
+                    def: {
+                        params: [
+                            null,
+                            {
+                                type: 'number',
+                                params: ['0'],
+                            },
+                            {
+                                type: 'number',
+                                params: ['0'],
+                            },
+                            50,
+                            null,
+                        ],
+                        type: 'robotis_koalabot_lite_icon_screen_game_character',
+                    },
+                    paramsKeyMap: {
+                        ICON: 0,
+                        X: 1,
+                        Y: 2,
+                        SIZE: 3,
+                    },
+                    class: 'robotis_koalabot_lite_lcd',
+                    isNotFor: ['RobotisKoalabotLite'],
+                    func(sprite, script) {
+                        // instruction / address / length / value / default length
+                        let iconNum = script.getField('ICON', script);
+                        let x = script.getNumberValue('X', script);
+                        let y = script.getNumberValue('Y', script);
+                        let size = script.getNumberValue('SIZE', script) * 2;
+
+                        let data_instruction = INST_WRITE;
+                        let data_address = 166;
+                        let data_length = 2;
+                        let data_value = 10496;
+
+                        if (x < -160) {
+                            x = -160;
+                        } else if (x > 160) {
+                            x = 160;
+                        }
+
+                        if (y < -120) {
+                            y = -120;
+                        } else if (y > 120) {
+                            y = 120;
+                        }
+
+                        if (size < 0) {
+                            size = 0;
+                        } else if (size > 400) {
+                            size = 400;
+                        }
+
+                        data_value = iconNum;
+
+                        let data_sendqueue = [
+                            [INST_WRITE, 130, 2, x],
+                            [INST_WRITE, 132, 2, y],
+                            [INST_WRITE, 149, 2, size],
+                            [data_instruction, data_address, data_length, data_value],
+                            [INST_WRITE, 162, 1, 1],
+                        ];
+
+                        return Entry.RobotisKoalabotLite.postCallReturn(
+                            script,
+                            data_sendqueue,
+                            DEFAULT_DELAY + 200
+                        );
+                    },
+                    syntax: {
+                        js: [],
+                        py: ['Koalabotlite.icon_screen_game_and_character(%1,%2,%3,%4)'],
+                    },
+                },
                 robotis_koalabot_lite_text_screen: {
                     color: EntryStatic.colorSet.block.default.HARDWARE,
                     outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -6168,8 +6418,8 @@ let camera_id_for_use = 0;
         }
 
         requestLocalData() {
-            let packet = null;
-            if (this.robotisBuffer.length > 0) {
+            let packets = [];
+            while (this.robotisBuffer.length > 0) {
                 const data = this.robotisBuffer.shift();
                 const instruction = data[0];
                 const address = data[1];
@@ -6177,6 +6427,7 @@ let camera_id_for_use = 0;
                 const value = data[3];
                 const dataBuffer = data[4];
                 let id = 0;
+                let packet = null;
 
                 switch (instruction) {
                     case INST_WRITE:
@@ -6188,8 +6439,12 @@ let camera_id_for_use = 0;
                         packet = this.writePacket(id, address, length, dataBuffer);
                         break;
                 }
+
+                if (packet !== null && Array.isArray(packet)) {
+                    packets.push(...packet);
+                }
             }
-            return packet;
+            return packets;
         }
 
         handleLocalData(data) {
@@ -6379,6 +6634,7 @@ let camera_id_for_use = 0;
 
         requestInitialData() {
             this.robotisBuffer = [];
+            this.robotisBuffer.push([INST_WRITE, 1010, 2, 0xABC2]); // 아래 20번 모드 진입후 코알라 얼굴로 변경준비
             this.robotisBuffer.push([INST_WRITE, 21, 2, 20]);
             this.robotisBuffer.push([INST_WRITE, 19, 1, 1]); // bypass 모드 켜기
             this.robotisBuffer.push([INST_WRITE, 20, 1, 0]); // bypass port를 BLE로 설정

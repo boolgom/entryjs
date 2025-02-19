@@ -113,6 +113,7 @@ module.exports = {
                                     type: 'Dropdown',
                                     value: 'next',
                                     options: keyInputList,
+                                    arrowColor: EntryStatic.colorSet.arrow.default.JUDGE,
                                     converter: Entry.block.converters.keyboardCode,
                                 },
                             ],
@@ -247,6 +248,7 @@ module.exports = {
                                     value: null,
                                     menuName: 'collision',
                                     fontSize: 11,
+                                    arrowColor: EntryStatic.colorSet.arrow.default.JUDGE,
                                     converter: Entry.block.converters.returnObjectOrStringValue,
                                     codeMap: 'Entry.CodeMap.Entry.reach_something[1]',
                                 },
@@ -731,102 +733,6 @@ module.exports = {
                     py: [
                         {
                             syntax: 'Entry.is_boost_mode()',
-                            blockType: 'param',
-                        },
-                    ],
-                },
-            },
-            is_current_device_type: {
-                color: EntryStatic.colorSet.block.default.JUDGE,
-                outerLine: EntryStatic.colorSet.block.darken.JUDGE,
-                skeleton: 'basic_boolean_field',
-                statements: [],
-                params: [
-                    {
-                        type: 'Dropdown',
-                        options: [
-                            [Lang.Blocks.desktop, 'desktop'],
-                            [Lang.Blocks.tablet, 'tablet'],
-                            [Lang.Blocks.smartphone, 'mobile'],
-                        ],
-                        value: 'desktop',
-                        fontSize: 10,
-                        bgColor: EntryStatic.colorSet.block.darken.JUDGE,
-                        arrowColor: EntryStatic.colorSet.arrow.default.DEFAULT,
-                    },
-                ],
-                events: {},
-                def: {
-                    params: [null],
-                    type: 'is_current_device_type',
-                },
-                pyHelpDef: {
-                    params: ['A&value'],
-                    type: 'is_current_device_type',
-                },
-                class: 'boolean_device',
-                isNotFor: [],
-                paramsKeyMap: {
-                    DEVICE: 0,
-                },
-                func(sprite, script) {
-                    const device = script.getField('DEVICE', script);
-                    const deviceType = Entry.Utils.getDeviceType();
-                    if (device !== 'desktop') {
-                        return deviceType === device;
-                    } else if (deviceType !== 'mobile' && deviceType !== 'tablet') {
-                        return true;
-                    }
-                    return false;
-                },
-                syntax: {
-                    js: [],
-                    py: [
-                        {
-                            syntax: 'Entry.is_current_device_type(%1)',
-                            blockType: 'param',
-                            textParams: [
-                                {
-                                    type: 'Dropdown',
-                                    options: [
-                                        [Lang.Blocks.desktop, 'desktop'],
-                                        [Lang.Blocks.tablet, 'tablet'],
-                                        [Lang.Blocks.smartphone, 'mobile'],
-                                    ],
-                                    value: 'desktop',
-                                    fontSize: 11,
-                                    converter: Entry.block.converters.returnStringValue,
-                                },
-                            ],
-                        },
-                    ],
-                },
-            },
-            is_touch_supported: {
-                color: EntryStatic.colorSet.block.default.JUDGE,
-                outerLine: EntryStatic.colorSet.block.darken.JUDGE,
-                skeleton: 'basic_boolean_field',
-                statements: [],
-                params: [],
-                events: {},
-                def: {
-                    params: [null],
-                    type: 'is_touch_supported',
-                },
-                class: 'boolean_device',
-                isNotFor: [],
-                func() {
-                    return (
-                        'ontouchstart' in window ||
-                        navigator.maxTouchPoints > 0 ||
-                        navigator.msMaxTouchPoints > 0
-                    );
-                },
-                syntax: {
-                    js: [],
-                    py: [
-                        {
-                            syntax: 'Entry.is_touch_supported()',
                             blockType: 'param',
                         },
                     ],

@@ -18,14 +18,15 @@ const DropDownDynamicGenerator = {
             return [[Lang.Blocks.no_target, 'null']];
         }
     },
+    tablePredictDataDistinct: () => {
+        if (Entry.aiLearning.labels) {
+            return Entry.aiLearning.labels.map((item) => [item, item]);
+        } else {
+            return [[Lang.Blocks.no_target, 'null']];
+        }
+    },
     valueMap: () => {
-        const valueMap =
-            Object.values(
-                Entry.aiLearning.getTrainResult()?.valueMap ||
-                    Entry.aiLearning?.result?.valueMap ||
-                    {}
-            ) || [];
-
+        const valueMap = Object.values(Entry.aiLearning.getTrainResult()?.valueMap || []);
         if (valueMap?.length) {
             return valueMap.map((name) => [name, name]);
         } else {
