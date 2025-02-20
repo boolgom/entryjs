@@ -29,25 +29,19 @@ export default class WebUsbFlasher {
         this.endpointNumber = -1;
     }
 
-    // TODO: 함수분리 리팩토링
+    // INFO: 연결된 기기에 파라미터로 넘어온 펌웨어를 플래싱
+    // TODO: 현재 유일한 지원기종인 microbitble에 맞춰져있음, 추후 지원기기가 늘어나면 로직수정 필요
     async flashFirmware(firmwareUrl: string, moduleId: string) {
         try {
+            if (!this.device) {
+                throw Error('device undefined');
+            }
             const response = await fetch(firmwareUrl);
             const hexData = await response.text();
             const data = stringToUint8Array(hexData);
-            this.device = await navigator.usb.requestDevice({
-                filters: [{ vendorId: 0x0d28 }],
-            });
-            await this.device.open();
-            await this.device.selectConfiguration(1);
-            this.findInterface();
-            await this.device.claimInterface(this.claimInterface);
 
             this.flashState = 'start';
-            const result = await this.writeData([0x8a, 1]);
-            if (result[1] !== 0) {
-                throw Error('device open failed');
-            }
+
             let chunkSize = 62;
             let offset = 0;
             let sentPages = 0;
@@ -86,6 +80,21 @@ export default class WebUsbFlasher {
         }
     }
 
+    // INFO: 펌웨어 플래시전 webUsb로 기기와 브라우저를 연결
+    async connectUsb() {
+        // TODO: 지원기기가 늘어나면 vendorId 변수값으로 변경
+        this.device = await navigator.usb.requestDevice({
+            filters: [{ vendorId: 0x0d28 }],
+        });
+        await this.device.open();
+        await this.device.selectConfiguration(1);
+        this.findInterface();
+        await this.device.claimInterface(this.claimInterface);
+        const result = await this.writeData([0x8a, 1]);
+        if (result[1] !== 0) {
+            throw Error('device open failed');
+        }
+    }
 
     findInterface() {
         const filteredInterfaces = this.device.configurations[0].interfaces.filter(

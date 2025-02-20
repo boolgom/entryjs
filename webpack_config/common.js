@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const webpack = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -57,15 +58,6 @@ module.exports = {
                     },
                 ],
             },
-            // {
-            //     // eslint-disable-next-line max-len
-            //     test: /\.(ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|cur)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            //     loader: 'url-loader',
-            //     options: {
-            //         name: '[hash].[ext]',
-            //         limit: 10000,
-            //     },
-            // },
             {
                 test: /\.(ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|cur)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 type: 'asset',
@@ -90,8 +82,6 @@ module.exports = {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            // you can specify a publ icPath here
-                            // by default it use publicPath in webpackOptions.output
                             publicPath: '../',
                         },
                     },
@@ -138,6 +128,7 @@ module.exports = {
         '@entrylabs/tool': 'EntryTool',
         'entry-paint': 'EntryPaint',
         '@entrylabs/sound-editor': 'EntrySoundEditor',
+        '@entrylabs/legacy-video': 'EntryVideoLegacy',
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], {
@@ -148,10 +139,24 @@ module.exports = {
             Buffer: ['buffer', 'Buffer'],
         }),
         new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
             filename: '[name].css',
             chunkFilename: '[id].css',
+        }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.join(
+                        __dirname,
+                        '..',
+                        'node_modules',
+                        'khaiii',
+                        'dist',
+                        'libkhaiii.wasm'
+                    ),
+                    to: path.join(__dirname, '..', 'dist', 'libkhaiii.wasm'),
+                    toType: 'file',
+                },
+            ],
         }),
     ],
 };

@@ -58,11 +58,11 @@ Entry.LiterallycanvasPainter = class LiterallycanvasPainter {
         });
         //that.lc.respondToSizeChange();
 
-        bgImage.onload = function() {
+        bgImage.onload = function () {
             that.lc.repaintLayer('background');
         };
 
-        const watchFunc = function(e) {
+        const watchFunc = function (e) {
             if (e && ((e.shape && !e.opts && e.shape.isPass) || (e.opts && e.opts.isPass))) {
                 Entry.do('processPicture', e, that.lc);
             } else {
@@ -195,7 +195,7 @@ Entry.LiterallycanvasPainter = class LiterallycanvasPainter {
 
         this.lc.saveShape(shape, !isOriginal);
 
-        image.onload = function() {
+        image.onload = function () {
             this.lc.setTool(this.lc.tools.SelectShape);
             this.lc.tool.setShape(this.lc, shape);
         }.bind(this);
@@ -270,6 +270,7 @@ Entry.LiterallycanvasPainter = class LiterallycanvasPainter {
             },
             //filename: "_1x1",
             fileurl: `${Entry.mediaFilePath}_1x1.png`,
+            thumbUrl: `${Entry.mediaFilePath}_1x1.png`,
             name: Lang.Painter.new_picture,
         };
 
@@ -336,9 +337,7 @@ Entry.LiterallycanvasPainter = class LiterallycanvasPainter {
                 this.fullscreenButton.setAttribute('alt', Lang.Painter.exit_fullscreen);
             }
         }
-        $(view)
-            .find('.lc-drawing.with-gui')
-            .trigger('resize');
+        $(view).find('.lc-drawing.with-gui').trigger('resize');
     }
 
     initTopBar() {

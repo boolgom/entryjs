@@ -345,6 +345,7 @@ export default class Hardware {
             return;
         }
         this.communicationType = this.hwModule.communicationType || 'auto';
+        Entry.block.changeBlockText('hardware_device_name_content', this.hwModule.title.ko);
         this._banClassAllHardware();
         Entry.dispatchEvent('hwChanged');
 
@@ -595,6 +596,10 @@ export default class Hardware {
             Entry.propertyPanel && Entry.propertyPanel.removeMode('hw');
             this.currentDeviceKey = undefined;
             this.hwModule = undefined;
+            Entry.block.changeBlockText(
+                'hardware_device_name_content',
+                Lang.Blocks.hardware_device_name_content
+            );
             Entry.dispatchEvent('hwChanged');
             Entry.toast.alert(
                 Lang.Msgs.hw_connection_termination_title,

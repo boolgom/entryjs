@@ -142,12 +142,16 @@ class PropertyPanel {
                 Entry.disposeEvent.notify();
             }
             const container = Entry.container;
+            splitter.addClass('enabled');
             this._cover.removeClass('entryRemove');
             this._cover._isVisible = true;
             container.splitterEnable = true;
+            const beforeVisible = this._cover.width() >= Entry.CANVAS_DEFAULT_WIDTH - 24;
+            let isMoved = false;
             if (Entry.documentMousemove) {
                 container.resizeEvent = Entry.documentMousemove.attach(this, (e: any) => {
                     if (container.splitterEnable) {
+                        isMoved = true;
                         Entry.resizeElement({
                             canvasWidth: e.clientX || e.x,
                         });
@@ -160,11 +164,19 @@ class PropertyPanel {
                 if (listener) {
                     container.splitterEnable = false;
                     listener.destroy();
+                    splitter.removeClass('enabled');
                     delete container.resizeEvent;
                 }
                 if (this._cover._isVisible) {
                     this._cover._isVisible = false;
                     this._cover.addClass('entryRemove');
+                }
+                if (
+                    !isMoved &&
+                    !beforeVisible &&
+                    this._cover.width() < Entry.CANVAS_DEFAULT_WIDTH - 24
+                ) {
+                    Entry.resizeElement({ canvasWidth: Entry.CANVAS_MIN_WIDTH });
                 }
                 $(document).unbind('.container:splitter');
             });

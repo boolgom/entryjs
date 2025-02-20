@@ -1,5 +1,5 @@
 import * as tf from '@tensorflow/tfjs';
-import VideoUtils from '../../util/videoUtils';
+import VideoUtils from '@entrylabs/legacy-video';
 import MediaPipeUtils from '../../util/mediaPipeUtils';
 const mediaPipeUtils = MediaPipeUtils.getInstance();
 export const classes = [
@@ -142,6 +142,11 @@ class ImageLearning {
 
     async load(url) {
         this.model = await tf.loadLayersModel(url);
+        this.isLoaded = true;
+    }
+
+    async reload() {
+        this.model = await tf.loadLayersModel(this.#url);
         this.isLoaded = true;
     }
 }

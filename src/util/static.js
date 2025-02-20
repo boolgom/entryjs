@@ -188,6 +188,12 @@ Entry.STATIC = {
         playgroundClickAddHardwareLiteBlockCancel: 1106,
     },
 
+    COMMAND_TYPES_CHANGE_CHECK: {
+        variableContainerAddVariable: 803,
+        variableContainerAddMessage: 807,
+        variableContainerAddList: 817,
+    },
+
     RECORDABLE: {
         SUPPORT: 1,
         SKIP: 2,

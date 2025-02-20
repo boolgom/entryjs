@@ -72,6 +72,8 @@ export class AtlasImageLoadingInfo {
         const img: HTMLImageElement = new Image();
         this._img = img;
 
+        img.crossOrigin = 'Anonymous';
+
         img.onload = () => {
             Entry.Loader.removeQueue();
             if (this.loadState == LoadingState.DESTROYED) {

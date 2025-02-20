@@ -226,8 +226,8 @@ Entry.EntryObject = class {
         const objectType = this.objectType;
         this.thumbUrl = '';
         if (objectType === 'sprite') {
-            if (picture.fileurl) {
-                this.thumbUrl = picture.fileurl;
+            if (picture.thumbUrl || picture.fileurl) {
+                this.thumbUrl = picture.thumbUrl || picture.fileurl;
             } else {
                 const fileName = picture.filename;
                 this.thumbUrl = `${Entry.defaultPath}/uploads/${fileName.substring(
@@ -747,8 +747,6 @@ Entry.EntryObject = class {
         }
         e.stopPropagation();
 
-        const { options = {} } = Entry;
-        const { backpackDisable } = options;
         const object = this;
         const container = Entry.container;
         const objects = container._getSortableObjectList();
@@ -810,7 +808,7 @@ Entry.EntryObject = class {
             },
         ];
 
-        if (!backpackDisable) {
+        if (!Entry.backpackDisable) {
             contextMenus.push({
                 text: Lang.Blocks.add_my_storage,
                 enable: !Entry.engine.isState('run') && !!window.user,
@@ -820,12 +818,14 @@ Entry.EntryObject = class {
             });
         }
 
-        contextMenus.push({
-            text: Lang.Blocks.export_object,
-            callback() {
-                Entry.dispatchEvent('exportObject', object);
-            },
-        });
+        if (Entry.exportObjectEnable) {
+            contextMenus.push({
+                text: Lang.Blocks.export_object,
+                callback() {
+                    Entry.dispatchEvent('exportObject', object);
+                },
+            });
+        }
 
         const { clientX: x, clientY: y } = Entry.Utils.convertMouseEvent(e);
         Entry.ContextMenu.show(contextMenus, 'workspace-contextmenu', { x, y });

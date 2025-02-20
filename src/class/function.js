@@ -518,7 +518,7 @@ class EntryFunc {
         const originalTypeFullName = /string/gi.test(originalType)
             ? 'function_param_string'
             : 'function_param_boolean';
-        let BlockSchema = function() {};
+        let BlockSchema = function () {};
         BlockSchema.prototype = blockPrototype;
         BlockSchema = new BlockSchema();
         BlockSchema.changeEvent = new Entry.Event();
@@ -830,7 +830,7 @@ class EntryFunc {
         if (!isUpdate && Entry.block[prefixedFunctionId]) {
             return;
         }
-        let BlockSchema = function() {};
+        let BlockSchema = function () {};
         BlockSchema.prototype = Entry.block.function_general;
 
         if (type === 'value') {
@@ -871,6 +871,9 @@ class EntryFunc {
     }
 
     loadSnapshot() {
+        if (!this.snapshot_) {
+            return;
+        }
         const { localVariables } = this.snapshot_;
         this.localVariables = localVariables;
         delete this.snapshot_;

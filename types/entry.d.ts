@@ -111,6 +111,11 @@ export declare interface IEntry extends EntryOptions {
     aiUtilizeBlocks: any;
     hardwareLiteBlocks: any;
     generateHash: () => string;
+
+    canvas_: HTMLCanvasElement;
+    CANVAS_MIN_WIDTH: 162;
+    CANVAS_DEFAULT_WIDTH: 324;
+    CANVAS_MAX_WIDTH: 640;
 }
 
 declare type IHardwareType = 'serial' | 'bluetooth' | 'hid' | 'ble';

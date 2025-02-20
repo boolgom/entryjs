@@ -37,6 +37,19 @@ Entry.EXPANSION_BLOCK.weather = {
         Entry.EXPANSION_BLOCK.weather.getData('now', 'Seoul');
         Entry.EXPANSION_BLOCK.weather.isInitialized = true;
     },
+    getCityCode(location) {
+        let cityCode = null;
+        if (typeof location === 'string') {
+            cityCode = this.locationMap[location].code;
+        } else {
+            if (location.sub == locationData.initialData[1]) {
+                cityCode = this.locationMap[location.parent].code;
+            } else {
+                cityCode = this.locationMap[location.parent].sub[location.sub];
+            }
+        }
+        return cityCode;
+    },
     async getData(type, location, dateStr) {
         let cityCode = null;
         if (typeof location === 'string') {
@@ -49,6 +62,17 @@ Entry.EXPANSION_BLOCK.weather = {
             }
         }
 
+        const url = this.api + type;
+        try {
+            const response = await callApi(url, { url });
+            Entry.EXPANSION_BLOCK.weather.apiFail[type] = false;
+            return resolveData(response.data[cityCode], type, dateStr);
+        } catch (e) {
+            Entry.EXPANSION_BLOCK.weather.apiFail[type] = { error: e };
+            return Entry.EXPANSION_BLOCK.weather.defaultData;
+        }
+    },
+    async getDataWithCityCode(type, cityCode, dateStr) {
         const url = this.api + type;
         try {
             const response = await callApi(url, { url });
@@ -213,6 +237,7 @@ Entry.EXPANSION_BLOCK.weather = {
                 suseong_gu: '2726000000',
                 dalseo_gu: '2729000000',
                 dalseong: '2771000000',
+                gunwi: '2772000000',
             },
         },
         Incheon: {
@@ -302,26 +327,26 @@ Entry.EXPANSION_BLOCK.weather = {
             },
         },
         Gangwon: {
-            code: '4200000000',
+            code: '5100000000',
             sub: {
-                chuncheon: '4211000000',
-                wonju: '4213000000',
-                gangneung_si: '4215000000',
-                donghae: '4217000000',
-                taebaek_si: '4219000000',
-                'sokcho city': '4221000000',
-                samcheok_si: '4223000000',
-                hongcheon: '4272000000',
-                hoengseong_gun: '4273000000',
-                yeongwol_gun: '4275000000',
-                pyeongchang: '4276000000',
-                jeongseon: '4277000000',
-                cheolwon: '4278000000',
-                hwacheon: '4279000000',
-                yanggu: '4280000000',
-                inje: '4281000000',
-                goseong: '4282000000',
-                yangyang: '4283000000',
+                chuncheon: '5111000000',
+                wonju: '5113000000',
+                gangneung_si: '5115000000',
+                donghae: '5117000000',
+                taebaek_si: '5119000000',
+                'sokcho city': '5121000000',
+                samcheok_si: '5123000000',
+                hongcheon: '5172000000',
+                hoengseong_gun: '5173000000',
+                yeongwol_gun: '5175000000',
+                pyeongchang: '5176000000',
+                jeongseon: '5177000000',
+                cheolwon: '5178000000',
+                hwacheon: '5179000000',
+                yanggu: '5180000000',
+                inje: '5181000000',
+                goseong: '5182000000',
+                yangyang: '5183000000',
             },
         },
         'Chungcheongbuk-do': {
@@ -362,22 +387,22 @@ Entry.EXPANSION_BLOCK.weather = {
         },
 
         'Jeollabuk-do': {
-            code: '4500000000',
+            code: '5200000000',
             sub: {
-                jeonju: '4511000000',
-                gunsan_si: '4513000000',
-                iksan: '4514000000',
-                jeongeup: '4518000000',
-                namwon: '4519000000',
-                gimje_si: '4521000000',
-                wanju: '4571000000',
-                jinan: '4572000000',
-                muju: '4573000000',
-                jangsu: '4574000000',
-                imsil: '4575000000',
-                sunchang: '4577000000',
-                gochang: '4579000000',
-                buan: '4580000000',
+                jeonju: '5211000000',
+                gunsan_si: '5213000000',
+                iksan: '5214000000',
+                jeongeup: '5218000000',
+                namwon: '5219000000',
+                gimje_si: '5221000000',
+                wanju: '5271000000',
+                jinan: '5272000000',
+                muju: '5273000000',
+                jangsu: '5274000000',
+                imsil: '5275000000',
+                sunchang: '5277000000',
+                gochang: '5279000000',
+                buan: '5280000000',
             },
         },
         'Jeollanam-do': {
@@ -420,7 +445,6 @@ Entry.EXPANSION_BLOCK.weather = {
                 sangju_si: '4725000000',
                 mungyeong_si: '4728000000',
                 gyeongsan_si: '4729000000',
-                gunwi: '4772000000',
                 uiseong: '4773000000',
                 cheongsong: '4775000000',
                 goryong: '4776000000',
@@ -473,6 +497,19 @@ Entry.EXPANSION_BLOCK.weather = {
         humidity: 'humidity',
         precipitation: 'rain',
         precipitation_probability: 'rain_p',
+        wind_speed: 'windspd',
+        //현재
+        temperature: 'temp',
+        concentration_of_fine_dust: 'pm10',
+    },
+    // 시간만 강수량 파라미터가 달라서 따로 맵을 만듬.
+    propertyHourMap: {
+        //날짜별
+        the_lowest_temperature: 'min_temp',
+        the_highest_temperature: 'max_temp',
+        humidity: 'humidity',
+        precipitation: 'rainAmt',
+        precipitation_probability: 'rain',
         wind_speed: 'windspd',
         //현재
         temperature: 'temp',
@@ -651,6 +688,29 @@ Entry.EXPANSION_BLOCK.weather.getBlocks = function() {
             }
             return param;
         },
+        getTimeWeatherElement(isPython = false) {
+            const param = {
+                type: 'Dropdown',
+                options: [
+                    [Lang.Blocks.EXPANSION_WEATHER_temperature, 'temperature'],
+                    [Lang.Blocks.EXPANSION_WEATHER_precipitation, 'precipitation'],
+                    [Lang.Blocks.EXPANSION_WEATHER_wind_speed, 'wind_speed'],
+                    [Lang.Blocks.EXPANSION_WEATHER_humidity, 'humidity'],
+                    [
+                        Lang.Blocks.EXPANSION_WEATHER_precipitation_probability,
+                        'precipitation_probability',
+                    ],
+                ],
+                value: 'temperature',
+                fontSize: 11,
+                bgColor: EntryStatic.colorSet.block.darken.EXPANSION,
+                arrowColor: EntryStatic.colorSet.common.WHITE,
+            };
+            if (isPython) {
+                param.converter = Entry.block.converters.returnStringValue;
+            }
+            return param;
+        },
         getTime(isPython = false) {
             const param = {
                 type: 'Dropdown',
@@ -730,8 +790,8 @@ Entry.EXPANSION_BLOCK.weather.getBlocks = function() {
                 SUBLOCATION: 2,
                 WEATHER: 3,
             },
-            class: 'weather',
-            isNotFor: ['weather'],
+            class: 'weather_legacy',
+            isNotFor: ['weather_legacy'],
             async func(sprite, script) {
                 const location = {
                     parent: script.getField('LOCATION', script),
@@ -851,8 +911,8 @@ Entry.EXPANSION_BLOCK.weather.getBlocks = function() {
                 SUBLOCATION: 1,
                 FINEDUST: 2,
             },
-            class: 'weather',
-            isNotFor: ['weather'],
+            class: 'weather_legacy',
+            isNotFor: ['weather_legacy'],
             async func(sprite, script) {
                 const location = {
                     parent: script.getField('LOCATION', script),
@@ -945,8 +1005,8 @@ Entry.EXPANSION_BLOCK.weather.getBlocks = function() {
                 SUBLOCATION: 2,
                 TYPE: 3,
             },
-            class: 'weather',
-            isNotFor: ['weather'],
+            class: 'weather_legacy',
+            isNotFor: ['weather_legacy'],
             async func(sprite, script) {
                 const location = {
                     parent: script.getField('LOCATION', script),
@@ -1054,8 +1114,8 @@ Entry.EXPANSION_BLOCK.weather.getBlocks = function() {
                 SUBLOCATION: 1,
                 TYPE: 2,
             },
-            class: 'weather',
-            isNotFor: ['weather'],
+            class: 'weather_legacy',
+            isNotFor: ['weather_legacy'],
             func(sprite, script) {
                 const location = {
                     parent: script.getField('LOCATION', script),
@@ -1116,8 +1176,8 @@ Entry.EXPANSION_BLOCK.weather.getBlocks = function() {
                 SUBLOCATION: 1,
                 TIME: 2,
             },
-            class: 'weather',
-            isNotFor: ['weather'],
+            class: 'weather_legacy',
+            isNotFor: ['weather_legacy'],
             async func(sprite, script) {
                 const location = {
                     parent: script.getField('LOCATION', script),
@@ -1528,6 +1588,574 @@ Entry.EXPANSION_BLOCK.weather.getBlocks = function() {
                         textParams: [params.getLocation(true), params.getTime(true)],
                     },
                 ],
+            },
+        },
+        get_cur_weather: {
+            color: EntryStatic.colorSet.block.default.EXPANSION,
+            outerLine: EntryStatic.colorSet.block.darken.EXPANSION,
+            skeleton: 'basic_string_field',
+            statements: [],
+            params: [
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+            ],
+            events: {},
+            def: {
+                params: [
+                    {
+                        type: 'get_korea_area_code',
+                    },
+                ],
+                type: 'get_cur_weather',
+            },
+            pyHelpDef: {
+                params: ['A&value'],
+                type: 'get_cur_weather',
+            },
+            paramsKeyMap: {
+                LOCATION: 0,
+            },
+            class: 'weather',
+            isNotFor: ['weather'],
+            async func(sprite, script) {
+                const location = script.getValue('LOCATION', script);
+                const apiResult = await Entry.EXPANSION_BLOCK.weather.getDataWithCityCode(
+                    'now',
+                    location,
+                    null
+                );
+                return apiResult.sky;
+            },
+            syntax: {
+                js: [],
+                py: [],
+            },
+        },
+        get_cur_wind: {
+            color: EntryStatic.colorSet.block.default.EXPANSION,
+            outerLine: EntryStatic.colorSet.block.darken.EXPANSION,
+            skeleton: 'basic_string_field',
+            statements: [],
+            params: [
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+            ],
+            events: {},
+            def: {
+                params: [
+                    {
+                        type: 'get_korea_area_code',
+                    },
+                ],
+                type: 'get_cur_wind',
+            },
+            pyHelpDef: {
+                params: ['A&value'],
+                type: 'get_cur_wind',
+            },
+            paramsKeyMap: {
+                LOCATION: 0,
+            },
+            class: 'weather',
+            isNotFor: ['weather'],
+            async func(sprite, script) {
+                const location = script.getValue('LOCATION', script);
+                const apiResult = await Entry.EXPANSION_BLOCK.weather.getDataWithCityCode(
+                    'now',
+                    location,
+                    null
+                );
+                return apiResult.winddir;
+            },
+            syntax: {
+                js: [],
+                py: [],
+            },
+        },
+        get_cur_weather_data: {
+            color: EntryStatic.colorSet.block.default.EXPANSION,
+            outerLine: EntryStatic.colorSet.block.darken.EXPANSION,
+            skeleton: 'basic_string_field',
+            statements: [],
+            params: [
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+                params.getNowWeatherElement(),
+            ],
+            events: {},
+            def: {
+                params: [
+                    {
+                        type: 'get_korea_area_code',
+                    },
+                    params.getNowWeatherElement().value,
+                ],
+                type: 'get_cur_weather_data',
+            },
+            pyHelpDef: {
+                params: ['A&value', 'B&value'],
+                type: 'get_cur_weather_data',
+            },
+            paramsKeyMap: {
+                LOCATION: 0,
+                TYPE: 1,
+            },
+            class: 'weather',
+            isNotFor: ['weather'],
+            async func(sprite, script) {
+                const location = script.getValue('LOCATION', script);
+                const type =
+                    Entry.EXPANSION_BLOCK.weather.propertyMap[script.getField('TYPE', script)];
+                const apiResult = await Entry.EXPANSION_BLOCK.weather.getDataWithCityCode(
+                    'now',
+                    location,
+                    null
+                );
+                return apiResult[type];
+            },
+            syntax: {
+                js: [],
+                py: [],
+            },
+        },
+        check_cur_weather: {
+            color: EntryStatic.colorSet.block.default.EXPANSION,
+            outerLine: EntryStatic.colorSet.block.darken.EXPANSION,
+            skeleton: 'basic_boolean_field',
+            statements: [],
+            params: [
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+                params.getSky(),
+            ],
+            events: {},
+            def: {
+                params: [
+                    {
+                        type: 'get_korea_area_code',
+                    },
+                    params.getSky().value,
+                ],
+                type: 'check_cur_weather',
+            },
+            pyHelpDef: {
+                params: ['B&value', 'C&value', 'D&value', null],
+                type: 'check_cur_weather',
+            },
+            paramsKeyMap: {
+                LOCATION: 0,
+                WEATHER: 1,
+            },
+            class: 'weather',
+            isNotFor: ['weather'],
+            async func(sprite, script) {
+                const location = script.getValue('LOCATION', script);
+                const apiResult = await Entry.EXPANSION_BLOCK.weather.getDataWithCityCode(
+                    'now',
+                    location,
+                    null
+                );
+                return Entry.EXPANSION_BLOCK.weather.checkWeather(
+                    apiResult.sky_code,
+                    script.getField('WEATHER', script)
+                );
+            },
+            syntax: {
+                js: [],
+                py: [],
+            },
+        },
+        check_cur_finddust: {
+            color: EntryStatic.colorSet.block.default.EXPANSION,
+            outerLine: EntryStatic.colorSet.block.darken.EXPANSION,
+            skeleton: 'basic_boolean_field',
+            statements: [],
+            params: [
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+                params.getFineDust(),
+            ],
+            events: {},
+            def: {
+                params: [
+                    {
+                        type: 'get_korea_area_code',
+                    },
+                    params.getFineDust().value,
+                ],
+                type: 'check_cur_finddust',
+            },
+            pyHelpDef: {
+                params: ['B&value', 'C&value', null],
+                type: 'check_cur_finddust',
+            },
+            paramsKeyMap: {
+                LOCATION: 0,
+                FINEDUST: 1,
+            },
+            class: 'weather',
+            isNotFor: ['weather'],
+            async func(sprite, script) {
+                const location = script.getValue('LOCATION', script);
+                const apiResult = await Entry.EXPANSION_BLOCK.weather.getDataWithCityCode(
+                    'now',
+                    location,
+                    null
+                );
+                return Entry.EXPANSION_BLOCK.weather.checkFineDust(
+                    apiResult.pm10,
+                    script.getField('FINEDUST', script)
+                );
+            },
+            syntax: {
+                js: [],
+                py: [],
+            },
+        },
+        get_day_weather: {
+            color: EntryStatic.colorSet.block.default.EXPANSION,
+            outerLine: EntryStatic.colorSet.block.darken.EXPANSION,
+            skeleton: 'basic_string_field',
+            statements: [],
+            params: [
+                params.getDate(),
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+            ],
+            events: {},
+            def: {
+                params: [
+                    params.getDate().value,
+                    {
+                        type: 'get_korea_area_code',
+                    },
+                ],
+                type: 'get_day_weather',
+            },
+            pyHelpDef: {
+                params: ['B&value', 'C&value', null],
+                type: 'get_day_weather',
+            },
+            paramsKeyMap: {
+                DATE: 0,
+                LOCATION: 1,
+            },
+            class: 'weather_day',
+            isNotFor: ['weather'],
+            async func(sprite, script) {
+                const location = script.getValue('LOCATION', script);
+                const apiResult = await Entry.EXPANSION_BLOCK.weather.getDataWithCityCode(
+                    'week',
+                    location,
+                    script.getField('DATE', script)
+                );
+                return apiResult.sky;
+            },
+            syntax: {
+                js: [],
+                py: [],
+            },
+        },
+        get_day_weather_data: {
+            color: EntryStatic.colorSet.block.default.EXPANSION,
+            outerLine: EntryStatic.colorSet.block.darken.EXPANSION,
+            skeleton: 'basic_string_field',
+            statements: [],
+            params: [
+                params.getDate(),
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+                params.getWeatherElements(),
+            ],
+            events: {},
+            def: {
+                params: [
+                    params.getDate().value,
+                    {
+                        type: 'get_korea_area_code',
+                    },
+                    params.getWeatherElements().value,
+                ],
+                type: 'get_day_weather_data',
+            },
+            pyHelpDef: {
+                params: ['B&value', 'C&value', null],
+                type: 'get_day_weather_data',
+            },
+            paramsKeyMap: {
+                DATE: 0,
+                LOCATION: 1,
+                TYPE: 2,
+            },
+            class: 'weather_day',
+            isNotFor: ['weather'],
+            async func(sprite, script) {
+                const location = script.getValue('LOCATION', script);
+                const type =
+                    Entry.EXPANSION_BLOCK.weather.propertyMap[script.getField('TYPE', script)];
+                const apiResult = await Entry.EXPANSION_BLOCK.weather.getDataWithCityCode(
+                    'week',
+                    location,
+                    script.getField('DATE', script)
+                );
+                return apiResult[type];
+            },
+            syntax: {
+                js: [],
+                py: [],
+            },
+        },
+        check_day_weather: {
+            color: EntryStatic.colorSet.block.default.EXPANSION,
+            outerLine: EntryStatic.colorSet.block.darken.EXPANSION,
+            skeleton: 'basic_boolean_field',
+            statements: [],
+            params: [
+                params.getDate(),
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+                params.getSky(),
+            ],
+            events: {},
+            def: {
+                params: [
+                    params.getDate().value,
+                    {
+                        type: 'get_korea_area_code',
+                    },
+                    params.getSky().value,
+                ],
+                type: 'check_day_weather',
+            },
+            pyHelpDef: {
+                params: ['B&value', 'C&value', null],
+                type: 'check_day_weather',
+            },
+            paramsKeyMap: {
+                DATE: 0,
+                LOCATION: 1,
+                WEATHER: 2,
+            },
+            class: 'weather_day',
+            isNotFor: ['weather'],
+            async func(sprite, script) {
+                const location = script.getValue('LOCATION', script);
+                const apiResult = await Entry.EXPANSION_BLOCK.weather.getDataWithCityCode(
+                    'week',
+                    location,
+                    script.getField('DATE', script)
+                );
+                return Entry.EXPANSION_BLOCK.weather.checkWeather(
+                    apiResult.sky_code,
+                    script.getField('WEATHER', script)
+                );
+            },
+            syntax: {
+                js: [],
+                py: [],
+            },
+        },
+        get_time_weather: {
+            color: EntryStatic.colorSet.block.default.EXPANSION,
+            outerLine: EntryStatic.colorSet.block.darken.EXPANSION,
+            skeleton: 'basic_string_field',
+            statements: [],
+            params: [
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+                params.getTime(),
+            ],
+            events: {},
+            def: {
+                params: [
+                    {
+                        type: 'get_korea_area_code',
+                    },
+                    params.getTime().value,
+                ],
+                type: 'get_time_weather',
+            },
+            pyHelpDef: {
+                params: ['A&value', 'B&value', 'C&value'],
+                type: 'get_time_weather',
+            },
+            paramsKeyMap: {
+                LOCATION: 0,
+                TIME: 1,
+            },
+            class: 'weather_time',
+            isNotFor: ['weather'],
+            async func(sprite, script) {
+                const location = script.getValue('LOCATION', script);
+                const date = Entry.EXPANSION_BLOCK.weather.date
+                    .toISOString()
+                    .slice(0, 10)
+                    .replace(/-/g, '');
+                let time = script.getField('TIME', script);
+                // db에 저장하지 않으면서 00시가 없어져서 03시부터 가능..
+                if (time == '00') {
+                    time = '03';
+                }
+                const apiResult = await Entry.EXPANSION_BLOCK.weather.getDataWithCityCode(
+                    'hour',
+                    location,
+                    date + pad2(time - (time % 3))
+                );
+                return apiResult.sky;
+            },
+            syntax: {
+                js: [],
+                py: [],
+            },
+        },
+        get_time_weather_data: {
+            color: EntryStatic.colorSet.block.default.EXPANSION,
+            outerLine: EntryStatic.colorSet.block.darken.EXPANSION,
+            skeleton: 'basic_string_field',
+            statements: [],
+            params: [
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+                params.getTime(),
+                params.getTimeWeatherElement(),
+            ],
+            events: {},
+            def: {
+                params: [
+                    {
+                        type: 'get_korea_area_code',
+                    },
+                    params.getTime().value,
+                    params.getTimeWeatherElement().value,
+                ],
+                type: 'get_time_weather_data',
+            },
+            pyHelpDef: {
+                params: ['A&value', 'B&value', 'C&value'],
+                type: 'get_time_weather_data',
+            },
+            paramsKeyMap: {
+                LOCATION: 0,
+                TIME: 1,
+                TYPE: 2,
+            },
+            class: 'weather_time',
+            isNotFor: ['weather'],
+            async func(sprite, script) {
+                const location = script.getValue('LOCATION', script);
+                const type =
+                    Entry.EXPANSION_BLOCK.weather.propertyHourMap[script.getField('TYPE', script)];
+                const date = Entry.EXPANSION_BLOCK.weather.date
+                    .toISOString()
+                    .slice(0, 10)
+                    .replace(/-/g, '');
+                let time = script.getField('TIME', script);
+                // db에 저장하지 않으면서 00시가 없어져서 03시부터 가능..
+                if (time == '00') {
+                    time = '03';
+                }
+                const apiResult = await Entry.EXPANSION_BLOCK.weather.getDataWithCityCode(
+                    'hour',
+                    location,
+                    date + pad2(time - (time % 3))
+                );
+                return apiResult[type];
+            },
+            syntax: {
+                js: [],
+                py: [],
+            },
+        },
+        check_time_weather: {
+            color: EntryStatic.colorSet.block.default.EXPANSION,
+            outerLine: EntryStatic.colorSet.block.darken.EXPANSION,
+            skeleton: 'basic_boolean_field',
+            statements: [],
+            params: [
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+                params.getTime(),
+                params.getSky(),
+            ],
+            events: {},
+            def: {
+                params: [
+                    {
+                        type: 'get_korea_area_code',
+                    },
+                    params.getTime().value,
+                    params.getSky().value,
+                ],
+                type: 'check_time_weather',
+            },
+            pyHelpDef: {
+                params: ['B&value', 'C&value', null],
+                type: 'check_time_weather',
+            },
+            paramsKeyMap: {
+                LOCATION: 0,
+                TIME: 1,
+                WEATHER: 2,
+            },
+            class: 'weather_time',
+            isNotFor: ['weather'],
+            async func(sprite, script) {
+                const location = script.getValue('LOCATION', script);
+                const date = Entry.EXPANSION_BLOCK.weather.date
+                    .toISOString()
+                    .slice(0, 10)
+                    .replace(/-/g, '');
+                let time = script.getField('TIME', script);
+                // db에 저장하지 않으면서 00시가 없어져서 03시부터 가능..
+                if (time == '00') {
+                    time = '03';
+                }
+                const apiResult = await Entry.EXPANSION_BLOCK.weather.getDataWithCityCode(
+                    'hour',
+                    location,
+                    date + pad2(time - (time % 3))
+                );
+                return Entry.EXPANSION_BLOCK.weather.checkWeather(
+                    apiResult.sky_code,
+                    script.getField('WEATHER', script)
+                );
+            },
+            syntax: {
+                js: [],
+                py: [],
             },
         },
     };

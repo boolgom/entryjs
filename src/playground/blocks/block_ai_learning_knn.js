@@ -705,7 +705,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,
@@ -804,7 +804,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,
@@ -924,7 +924,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,
@@ -1065,7 +1065,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,
@@ -1227,7 +1227,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,
@@ -1410,7 +1410,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,
@@ -1500,7 +1500,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,
@@ -1587,7 +1587,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,
@@ -1695,7 +1695,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,
@@ -1824,7 +1824,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,
@@ -1974,7 +1974,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,
@@ -2145,7 +2145,7 @@ module.exports = {
                     {
                         type: 'DropdownDynamic',
                         value: null,
-                        menuName: DropDownDynamicGenerator.tablePredictDataDistinct,
+                        menuName: DropDownDynamicGenerator.valueMap,
                         needDeepCopy: true,
                         fontSize: 11,
                         bgColor: EntryStatic.colorSet.block.darken.AI_LEARNING,

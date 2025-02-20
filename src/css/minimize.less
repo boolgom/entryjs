@@ -1,0 +1,389 @@
+.entryMinimizeWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+
+    .entry.minimize {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: #fff;
+        height: 0;
+        padding-top: 56.25%;
+
+        #entryCanvas {
+            position: absolute;
+        }
+
+        .entryEngineMinimize {
+            margin-top: 48px;
+        }
+    }
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .entry.minimize {
+        min-width: calc((100vh - 48px) * 16 / 9);
+        padding-top: calc(100vh - 48px);
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .entry.minimize {
+        min-width: unset;
+        max-height: 100vw * 9 / 16;
+        width: 100vw;
+        padding-top: calc(100vh + 48px);
+    }
+}
+
+.entryMinimizeWrapper,
+.entryPopup {
+    .entry.minimize,
+    .entryPopupWindow {
+        #entryCanvasWrapper {
+            background-color: #000;
+            overflow: hidden;
+            width: 100%;
+        }
+        .canvasButton {
+            display: none;
+            box-sizing: border-box;
+        }
+
+        .entryCanvasWorkspace {
+            width: 100%;
+        }
+        &:empty + .canvasButton {
+            display: none;
+        }
+        & + .canvasButton {
+            display: block;
+        }
+
+        &.fsView {
+            .entryMaximizeButtonMinimize {
+                .backgroundImage('minimize/reduce.svg');
+            }
+        }
+
+        &.fullscreen {
+            .entryRunButtonBigMinimizeCurtain {
+                background-color: unset;
+            }
+        }
+
+        &:fullscreen {
+            display: block;
+            #entryCanvasWrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: calc(100% - 48px);
+                #entryCanvas {
+                    width: 100vw;
+                    height: calc(9 / 16 * 100vw);
+                    max-height: calc(100vh - 48px);
+                    max-width: calc(16 / 9 * (100vh - 48px));
+                }
+            }
+            .entryRunButtonBigMinimizeCurtain {
+                z-index: 1;
+            }
+            .entryEngineMinimize {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                left: 0;
+            }
+        }
+        .canvasButton {
+            display: none;
+        }
+        &:empty,
+        .minimize:empty {
+            z-index: 1;
+            background: #ffffff;
+            &::after {
+                position: relative;
+                content: '';
+                display: block;
+                width: 100%;
+                height: calc(100vh - 2px);
+                background-image: linear-gradient(
+                        90deg,
+                        rgba(255, 255, 255, 0) 0,
+                        rgba(255, 255, 255, 0.8) 50%,
+                        rgba(255, 255, 255, 0) 100%
+                    ),
+                    linear-gradient(#f2f2f2 calc(100% - 48px), transparent 0),
+                    linear-gradient(#f2f2f2 48px, transparent 0),
+                    linear-gradient(#f2f2f2 48px, transparent 0),
+                    linear-gradient(#f2f2f2 48px, transparent 0),
+                    linear-gradient(#f2f2f2 48px, transparent 0);
+                background-size:
+                    200px 100%,
+                    100% 100%,
+                    140px 20px,
+                    99px 20px,
+                    17px 20px,
+                    17px 20px;
+                background-position:
+                    -150% bottom,
+                    0px 0px,
+                    center bottom 14px,
+                    right 92px bottom 14px,
+                    right 57px bottom 14px,
+                    right 18px bottom 14px;
+                background-repeat: no-repeat;
+                animation: loading 2s infinite;
+            }
+        }
+        .entryRemove {
+            display: none;
+        }
+        .entryRunButtonBigMinimize {
+            .backgroundImage('minimize/play_big.svg');
+            position: absolute;
+            top: calc(50% - 55px);
+            left: calc(50% - 56px);
+            width: 111px;
+            height: 111px;
+            border: none;
+            background-repeat: no-repeat;
+            background-position: 50% center;
+            cursor: pointer;
+            z-index: 1;
+            background-color: unset;
+            &:hover {
+                opacity: 1;
+            }
+        }
+      
+        .entryRunButtonBigMinimizeCurtain {
+            position: absolute;
+            top: 0%;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            z-index: 1;
+        }
+        .entryEngineMinimize {
+            height: 48px;
+            box-sizing: border-box;
+            position: relative;
+            background-color: #ffffff;
+            border-top: solid 1px #f2f2f2;
+            padding-left: 30px;
+            .entryEngineButtonMinimize {
+                border: none;
+                background-color: white;
+                position: relative;
+                margin-top: 16px;
+                margin-right: 24px;
+                float: left;
+                outline: none;
+                color: rgb(44, 49, 61);
+            }
+            .entryCoordinateButtonMinimize {
+                .backgroundImage('minimize/grid.svg');
+                width: 16px;
+                height: 16px;
+                border: 0px;
+                background-color: white;
+                float: right;
+                background-position: 0 0;
+                background-repeat: no-repeat;
+                background-size: 16px;
+            }
+            .entryMaximizeButtonMinimize {
+                .backgroundImage('minimize/fullscreen.svg');
+                width: 16px;
+                height: 16px;
+                border: 0px;
+                background-color: white;
+                float: right;
+                margin-right: 18px;
+                background-position: 0 0;
+                background-repeat: no-repeat;
+                background-size: 15px;
+            }
+            .entryStopButtonMinimize {
+                padding-left: 28px;
+                background-image: none;
+                &:before {
+                    .backgroundImage('minimize/stop.svg');
+                    position: absolute;
+                    left: 0px;
+                    width: 14px;
+                    height: 14px;
+                    background-position: 0 0;
+                    background-repeat: no-repeat;
+                    background-size: 14px auto;
+                    content: '';
+                }
+            }
+            .entryPauseButtonMinimize {
+                padding-left: 30px;
+                &:before {
+                    .backgroundImage('minimize/pause.svg');
+                    position: absolute;
+                    left: 0px;
+                    width: 14px;
+                    height: 14px;
+                    background-position: 0 0;
+                    background-repeat: no-repeat;
+                    background-size: 14px auto;
+                    content: '';
+                }
+            }
+            &.paused {
+                .entryPauseButtonMinimize:before {
+                    .backgroundImage('minimize/restart.svg');
+                    background-size: 14px 14px;
+                }
+            }
+        }
+        .entryMouseViewMinimize {
+            color: #f2f2f2;
+            font-size: 9pt;
+            margin: 0 auto;
+            width: 40%;
+            line-height: 52px;
+            text-align: center;
+        }
+
+        .audioShadeCirclebox {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            background: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            -moz-flex-direction: column;
+            width: 100%;
+            height: calc(100% - 32px);
+        }
+        .audioShadeCircle {
+            margin: auto;
+            margin-bottom: 6%;
+            padding: 0;
+            position: relative;
+            display: inline-block;
+            height: 34%;
+            width: auto;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            background-color: #32d27d;
+            vertical-align: top;
+        }
+        .audioShadeInner {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 60%;
+            height: 60%;
+            margin: auto;
+            background-color: #32d27d;
+            border-radius: 50%;
+            transform: scale(0.5);
+            transform-origin: center center;
+            animation: ani 3s linear infinite;
+            content: '';
+        }
+        .audioShadeInner:nth-of-type(2) {
+            animation-delay: 1s;
+        }
+        .audioShadeInner:nth-of-type(3) {
+            animation-delay: 2s;
+        }
+        .audioShadeInner:nth-of-type(4) {
+            animation-delay: 3s;
+        }
+        .audioShadeImg {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            left: 23%;
+            top: 23%;
+            width: 54%;
+            height: 54%;
+            z-index: 10;
+        }
+        .audioShadeText {
+            width: 100%;
+            height: 20%;
+            font-family: NanumGothic, 'Nanum Gothic';
+            font-size: 1.1em;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: center;
+        }
+        .audioProgress {
+            width: 64%;
+            height: 64%;
+            position: absolute;
+            left: 18%;
+            top: 18%;
+        }
+    }
+}
+
+.entryPopup {
+    .entryPopupWindow {
+        .entryRunButtonBigMinimize {
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: calc(100% - 48px);
+            border: none;
+            background-repeat: no-repeat;
+            background-position: 50% center;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+@keyframes ani {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.1;
+    }
+    70% {
+        opacity: 0.09;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+@keyframes loading {
+    to {
+        background-position:
+            200% bottom,
+            0px 0px,
+            center bottom 14px,
+            right 92px bottom 14px,
+            right 57px bottom 14px,
+            right 18px bottom 14px;
+    }
+}

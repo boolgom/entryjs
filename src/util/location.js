@@ -129,7 +129,6 @@ function getInitialData() {
                 [Lang.Blocks.location_gyeongsangbuk_sangju_si, 'sangju_si'],
                 [Lang.Blocks.location_gyeongsangbuk_mungyeong_si, 'mungyeong_si'],
                 [Lang.Blocks.location_gyeongsangbuk_gyeongsan_si, 'gyeongsan_si'],
-                [Lang.Blocks.location_gyeongsangbuk_gunwi, 'gunwi'],
                 [Lang.Blocks.location_gyeongsangbuk_uiseong, 'uiseong'],
                 [Lang.Blocks.location_gyeongsangbuk_cheongsong, 'cheongsong'],
                 [Lang.Blocks.location_gyeongsangbuk_goryong, 'goryong'],
@@ -165,6 +164,7 @@ function getInitialData() {
                 [Lang.Blocks.location_daegu_suseong_gu, 'suseong_gu'],
                 [Lang.Blocks.location_daegu_dalseo_gu, 'dalseo_gu'],
                 [Lang.Blocks.location_daegu_dalseong, 'dalseong'],
+                [Lang.Blocks.location_daegu_gunwi, 'gunwi'],
             ],
         },
         'Daejeon': {

@@ -257,6 +257,10 @@ Entry.Block = class Block {
         return this.thread;
     }
 
+    getStatements() {
+        return this.statements[0];
+    }
+
     insertAfter(blocks) {
         this.thread.insertByBlock(this, blocks);
     }
@@ -336,7 +340,7 @@ Entry.Block = class Block {
         });
 
         if (this._backupParams) {
-            json._backupParams = this._backupParams.map(function(p) {
+            json._backupParams = this._backupParams.map(function (p) {
                 if (p instanceof Entry.Block) {
                     return p.toJSON();
                 } else {

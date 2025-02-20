@@ -6,7 +6,6 @@ import _mean from 'lodash/mean';
 import _toNumber from 'lodash/toNumber';
 import _isNaN from 'lodash/isNaN';
 import Utils from './Utils';
-const { callApi } = require('../../util/common');
 const SVM = require('libsvm-js/asm');
 
 export const classes = [
