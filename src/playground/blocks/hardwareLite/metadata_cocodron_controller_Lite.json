@@ -1,0 +1,9 @@
+{
+    "name": "cocodroncontrollerLite",
+    "version": "1.0.0",
+    "type": "hardware",
+    "title": "코코드론조종기기",
+    "description": "cocodron",
+    "imageName": "cocodroncontrollerLite",
+    "moduleId": "680101"
+}
