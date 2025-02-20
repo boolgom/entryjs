@@ -10,8 +10,8 @@ Entry.Microbit = new (class Microbit {
         this.url = 'http://microbit.org/ko/';
         this.imageName = 'microbit.png';
         this.title = {
-            en: 'Microbit V1',
-            ko: '마이크로비트 V1',
+            en: 'Microbit',
+            ko: '마이크로비트',
         };
         this.name = 'microbit';
         this.blockIds = {};
@@ -146,7 +146,7 @@ Entry.Microbit.blockMenuBlocks = [
     // "microbit_radio_receive_event",
     //endregion microbit
 ];
-Entry.Microbit.getBlocks = function () {
+Entry.Microbit.getBlocks = function() {
     return {
         microbit_led_toggle: {
             color: EntryStatic.colorSet.block.default.HARDWARE,

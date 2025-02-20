@@ -20,7 +20,7 @@ module.exports = {
                 },
                 events: {
                     mousedown: [
-                        function () {
+                        function() {
                             Entry.do('funcEditStart', Entry.generateHash());
                         },
                     ],
@@ -67,7 +67,7 @@ module.exports = {
                 },
                 events: {
                     mousedown: [
-                        function () {
+                        function() {
                             Entry.do(
                                 'playgroundChangeViewMode',
                                 'variable',
@@ -129,7 +129,7 @@ module.exports = {
                 ],
                 events: {
                     updateFuncVariableList: [
-                        function () {
+                        function() {
                             const func = Entry.Func.targetFunc || {};
                             func?.content
                                 ?.getBlockList(false, 'set_func_variable')
@@ -237,7 +237,7 @@ module.exports = {
                 ],
                 events: {
                     updateFuncVariableList: [
-                        function () {
+                        function() {
                             const func = Entry.Func.targetFunc || {};
                             func?.content
                                 ?.getBlockList(false, 'get_func_variable')
@@ -341,7 +341,7 @@ module.exports = {
                 ],
                 events: {
                     dataAdd: [
-                        function (block) {
+                        function(block) {
                             const vc = Entry.variableContainer;
                             if (vc) {
                                 vc.addRef('_functionRefs', block);
@@ -349,7 +349,7 @@ module.exports = {
                         },
                     ],
                     dataDestroy: [
-                        function (block) {
+                        function(block) {
                             const vc = Entry.variableContainer;
                             if (vc) {
                                 vc.removeRef('_functionRefs', block);
@@ -357,7 +357,7 @@ module.exports = {
                         },
                     ],
                     dblclick: [
-                        function (blockView) {
+                        function(blockView) {
                             const mode = blockView.getBoard().workspace.getMode();
                             if (mode !== Entry.Workspace.MODE_BOARD) {
                                 return;
@@ -371,7 +371,7 @@ module.exports = {
                         },
                     ],
                 },
-                func(entity, script) {
+                func(entity) {
                     if (!this.initiated) {
                         this.initiated = true;
                         Entry.callStackLength++;
@@ -381,7 +381,6 @@ module.exports = {
                         this.funcExecutor.register.params = this.values;
                         this.funcExecutor.register.paramMap = func.paramMap;
                         this.funcExecutor.parentExecutor = this.executor;
-                        this.funcExecutor.parentScope = script;
                         this.funcExecutor.isFuncExecutor = true;
                         this.funcExecutor.localVariables = _cloneDeep(func.localVariables);
                     }
@@ -415,7 +414,7 @@ module.exports = {
                 params: [],
                 events: {
                     dataAdd: [
-                        function (block) {
+                        function(block) {
                             const vc = Entry.variableContainer;
                             if (vc) {
                                 vc.addRef('_functionRefs', block);
@@ -423,7 +422,7 @@ module.exports = {
                         },
                     ],
                     dataDestroy: [
-                        function (block) {
+                        function(block) {
                             const vc = Entry.variableContainer;
                             if (vc) {
                                 vc.removeRef('_functionRefs', block);
@@ -431,7 +430,7 @@ module.exports = {
                         },
                     ],
                     dblclick: [
-                        function (blockView) {
+                        function(blockView) {
                             const mode = blockView.getBoard().workspace.getMode();
                             if (mode !== Entry.Workspace.MODE_BOARD) {
                                 return;
@@ -445,7 +444,7 @@ module.exports = {
                         },
                     ],
                 },
-                func(entity, script) {
+                func(entity) {
                     if (!this.initiated) {
                         this.initiated = true;
                         Entry.callStackLength++;
@@ -455,7 +454,6 @@ module.exports = {
                         this.funcExecutor.register.params = this.values;
                         this.funcExecutor.register.paramMap = func.paramMap;
                         this.funcExecutor.parentExecutor = this.executor;
-                        this.funcExecutor.parentScope = script;
                         this.funcExecutor.isFuncExecutor = true;
                         this.funcExecutor.localVariables = _cloneDeep(func.localVariables);
                     }
@@ -575,7 +573,7 @@ module.exports = {
                 template: '%1 %2',
                 events: {
                     viewAdd: [
-                        function () {
+                        function() {
                             if (Entry.Func.isEdit) {
                                 Entry.Func.refreshMenuCode();
                             }
@@ -595,7 +593,7 @@ module.exports = {
                 template: '%1 %2',
                 events: {
                     viewAdd: [
-                        function () {
+                        function() {
                             if (Entry.Func.isEdit) {
                                 Entry.Func.refreshMenuCode();
                             }

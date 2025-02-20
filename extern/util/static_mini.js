@@ -124,17 +124,7 @@ EntryStatic.searchProjectOption = [
     },
 ];
 
-EntryStatic.variableBlockList = [
-    'get_variable',
-    'change_variable',
-    'set_variable',
-    'show_variable',
-    'hide_variable',
-];
-
-EntryStatic.messageBlockList = ['when_message_cast', 'message_cast', 'message_cast_wait'];
-
-EntryStatic.getAllBlocks = function () {
+EntryStatic.getAllBlocks = function() {
     return [
         {
             category: 'start',
@@ -144,10 +134,8 @@ EntryStatic.getAllBlocks = function () {
                 'mouse_clicked',
                 'mouse_click_cancled',
                 'when_object_click',
-                'when_object_click_canceled',
                 'when_message_cast',
                 'message_cast',
-                'message_cast_wait',
             ],
         },
         {
@@ -158,7 +146,6 @@ EntryStatic.getAllBlocks = function () {
                 'repeat_inf',
                 'repeat_while_true',
                 'stop_repeat',
-                'continue_repeat',
                 '_if',
                 'if_else',
                 'wait_until_true',
@@ -445,54 +432,136 @@ EntryStatic.getAllBlocks = function () {
             ],
         },
         {
-            category: 'hw_sensor',
-            visible: false,
-            blocks: [
-                'practical_course_dummy',
-                'hardware_device_name_title_sensor',
-                'hardware_device_name_content_sensor',
-            ].concat(EntryStatic.DynamicPracticalHardwareBlocks['hw_sensor']),
-        },
-        {
             category: 'hw_motor',
             visible: false,
             blocks: [
                 'practical_course_dummy',
-                'hardware_device_name_title_motor',
-                'hardware_device_name_content_motor',
+                // 'practical_course_move_for_secs',
+                // 'practical_course_move_for_secs2',
+                // 'practical_course_move_for',
+                // 'practical_course_move_for2',
+                // 'practical_course_stop_for',
+                // 'practical_course_set_servo2',
+                //roborobo
+                // 'roborobo_move_for_secs',
+                // 'roborobo_move_for',
+                // 'roborobo_turn_for',
+                // 'roborobo_stop_for',
+                //robotis
+                // 'robotis_aux_move_for',
+                // 'robotis_aux_stop_for',
+                // 'robotis_set_servo_joint',
+                // 'robotis_set_servo_wheel',
+                // 'robotis_move_for_secs',
+                // 'robotis_move_for_secs_dream',
+                // 'robotis_aux_move_for_dream',
+                // 'robotis_aux_stop_for_dream',
+                // //'robotis_set_servo_wheel_dream',
+                // //'robotis_set_servo_joint_dream',
+                // 'robotis_set_servo_mode_dream',
+                // 'robotis_set_servo_speed_dream',
+                // 'robotis_set_servo_position_dream',
+                // 'robotis_servo_stop_for_dream',
             ].concat(EntryStatic.DynamicPracticalHardwareBlocks['hw_motor']),
-        },
-        {
-            category: 'hw_led',
-            visible: false,
-            blocks: [
-                'practical_course_dummy',
-                'hardware_device_name_title_led',
-                'hardware_device_name_content_led',
-            ].concat(EntryStatic.DynamicPracticalHardwareBlocks['hw_led']),
         },
         {
             category: 'hw_melody',
             visible: false,
             blocks: [
                 'practical_course_dummy',
-                'hardware_device_name_title_melody',
-                'hardware_device_name_content_melody',
+                // 'practical_course_melody_note_for',
+                //robotis
+                // 'robotis_melody_note_for',
             ].concat(EntryStatic.DynamicPracticalHardwareBlocks['hw_melody']),
+        },
+        {
+            category: 'hw_sensor',
+            visible: false,
+            blocks: [
+                'practical_course_dummy',
+                // 'practical_course_touch_value',
+                // 'practical_course_touch_value_boolean',
+                // 'practical_course_light_value',
+                // 'practical_course_light_value_boolean',
+                // 'practical_course_sound_value',
+                // 'practical_course_sound_value_boolean',
+                // 'practical_course_irs_value',
+                // 'practical_course_irs_value_boolean',
+                //roborobo
+                // 'roborobo_touch_value',
+                // 'roborobo_touch_value_boolean',
+                // 'roborobo_light_value',
+                // 'roborobo_light_value_boolean',
+                // 'roborobo_sound_value',
+                // 'roborobo_sound_value_boolean',
+                // 'roborobo_irs_value',
+                // 'roborobo_irs_value_boolean',
+                //robotis
+                // 'robotis_touch_value',
+                // 'robotis_touch_value_boolean',
+                // 'robotis_irs_value',
+                // 'robotis_irs_value_boolean',
+                // 'robotis_light_value',
+                // 'robotis_light_value_boolean',
+                // 'robotis_detectedsound_value',
+                // 'robotis_detectingsound_value',
+                // 'robotis_detectedsound_value_boolean',
+                // 'robotis_detectingsound_value_boolean',
+                // 'robotis_detectedsound_value_init',
+                // 'robotis_color_value',
+                // 'robotis_color_value_boolean',
+                // 'robotis_humidity_value',
+                // 'robotis_humidity_value_boolean',
+                // 'robotis_temperature_value',
+                // 'robotis_temperature_value_boolean',
+                // 'robotis_userbutton_value',
+                // 'robotis_userbutton_value_boolean',
+                // 'robotis_touch_value_dream',
+                // 'robotis_touch_value_boolean_dream',
+                // 'robotis_irs_value_dream',
+                // 'robotis_irs_value_boolean_dream',
+                // 'robotis_irsInner_value_dream',
+                // 'robotis_light_value_dream',
+                // 'robotis_light_value_boolean_dream',
+                // 'robotis_color_value_dream',
+                // 'robotis_color_value_boolean_dream',
+                // 'robotis_humidity_value_dream',
+                // 'robotis_humidity_value_boolean_dream',
+                // 'robotis_temperature_value_dream',
+                // 'robotis_temperature_value_boolean_dream',
+            ].concat(EntryStatic.DynamicPracticalHardwareBlocks['hw_sensor']),
+        },
+        {
+            category: 'hw_led',
+            visible: false,
+            blocks: [
+                'practical_course_dummy',
+                // 'practical_course_diode_secs_toggle',
+                // 'practical_course_diode_toggle',
+                // 'practical_course_diode_inout_toggle',
+                // 'practical_course_diode_set_output',
+                // 'practical_course_diode_input_value',
+                //roborobo
+                // 'roborobo_diode_secs_toggle',
+                // 'roborobo_diode_toggle',
+                // 'roborobo_diode_inout_toggle',
+                // 'roborobo_diode_set_output',
+                // 'roborobo_diode_input_value',
+                //robotis
+                // 'robotis_set_led',
+                // 'robotis_set_led_dream',
+            ].concat(EntryStatic.DynamicPracticalHardwareBlocks['hw_led']),
         },
         {
             category: 'hw_robot',
             blocks: [
-                'robot_connect_helper',
                 'robot_reconnect',
                 'arduino_open',
+                'arduino_cloud_pc_open',
                 'arduino_connect',
-                'hardware_program_download',
+                'arduino_download_connector',
+                // 'download_guide',
                 'arduino_connected',
-                'hardware_device_name_title_robot',
-                'hardware_device_name_content',
-                'hardware_connected_noti',
-                'robot_noti',
             ],
         },
         {
@@ -642,7 +711,7 @@ EntryStatic.artPeriodOptions = [
     },
 ];
 
-EntryStatic.getCategoryByBlock = function (blockName) {
+EntryStatic.getCategoryByBlock = function(blockName) {
     if (!blockName) {
         return false;
     }
@@ -957,7 +1026,6 @@ EntryStatic.colorSet = {
     common: {
         WHITE: '#FFFFFF',
         DARK: '#000000',
-        GRAY: '#6c8696',
         TRANSPARENT: 'transparent',
         BUTTON: '#4f80ff',
         BUTTON_BACKGROUND: '#eee',
@@ -972,7 +1040,7 @@ EntryStatic.initOptions = {
     sceneEditable: false,
 };
 
-EntryStatic.hwCategoryList = ['hw_sensor', 'hw_motor', 'hw_led', 'hw_melody'];
+EntryStatic.hwCategoryList = ['hw_motor', 'hw_melody', 'hw_sensor', 'hw_led'];
 
 EntryStatic.DynamicPracticalHardwareBlocks = {};
 
@@ -1008,7 +1076,7 @@ EntryStatic.COMMAND_TYPES = {
     redo: 303,
 };
 
-EntryStatic.getDefaultFontFamily = function () {
+EntryStatic.getDefaultFontFamily = function() {
     const localLang = Lang || {};
     const type = localLang.type;
     const fallbackType = localLang.fallbackType;

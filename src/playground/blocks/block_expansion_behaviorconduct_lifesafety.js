@@ -76,7 +76,6 @@ Entry.EXPANSION_BLOCK.behaviorConductLifeSafety = {
     description: Lang.Msgs.expansion_behaviorConductLifeSafety_description,
     descriptionKey: 'Msgs.expansion_behaviorConductLifeSafety_description',
     isInitialized: false,
-    disabled: true,
     init() {
         if (this.isInitialized) {
             return;
@@ -87,9 +86,9 @@ Entry.EXPANSION_BLOCK.behaviorConductLifeSafety = {
     apiType: '03',
 };
 
-Entry.EXPANSION_BLOCK.behaviorConductLifeSafety.getBlocks = function () {
+Entry.EXPANSION_BLOCK.behaviorConductLifeSafety.getBlocks = function() {
     const categoryMap = getInitialCategoryMap();
-    const getCategory = function () {
+    const getCategory = function() {
         return Object.keys(categoryMap).map((category) => [categoryMap[category].lang, category]);
     };
     const defaultCategory = Object.keys(categoryMap)[0];

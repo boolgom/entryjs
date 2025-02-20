@@ -16,12 +16,7 @@ module.exports = {
                     },
                     {
                         type: 'Dropdown',
-                        options: [
-                            ['+', 'PLUS'],
-                            ['-', 'MINUS'],
-                            ['x', 'MULTI'],
-                            ['/', 'DIVIDE'],
-                        ],
+                        options: [['+', 'PLUS'], ['-', 'MINUS'], ['x', 'MULTI'], ['/', 'DIVIDE']],
                         value: 'PLUS',
                         fontSize: 10,
                         bgColor: EntryStatic.colorSet.block.darken.CALC,
@@ -335,10 +330,7 @@ module.exports = {
                     },
                     {
                         type: 'Dropdown',
-                        options: [
-                            ['x', 'x'],
-                            ['y', 'y'],
-                        ],
+                        options: [['x', 'x'], ['y', 'y']],
                         value: 'x',
                         fontSize: 10,
                         bgColor: EntryStatic.colorSet.block.darken.CALC,
@@ -386,10 +378,7 @@ module.exports = {
                                 },
                                 {
                                     type: 'Dropdown',
-                                    options: [
-                                        ['x', 'x'],
-                                        ['y', 'y'],
-                                    ],
+                                    options: [['x', 'x'], ['y', 'y']],
                                     value: 'x',
                                     fontSize: 11,
                                     arrowColor: EntryStatic.colorSet.arrow.default.CALC,
@@ -745,15 +734,20 @@ module.exports = {
                 class: 'calc',
                 isNotFor: [],
                 func(sprite, script) {
-                    const value = script.getNumberValue('LEFTHAND', script);
+                    let value = script.getNumberValue('LEFTHAND', script);
                     let operator = script.getField('VALUE', script);
                     const xRangeCheckList = ['asin_radian', 'acos_radian'];
                     if (xRangeCheckList.indexOf(operator) > -1 && (value > 1 || value < -1)) {
                         throw new Error('x range exceeded');
                     }
 
+                    const needToConvertList = ['sin', 'cos', 'tan'];
                     if (operator.indexOf('_')) {
                         operator = operator.split('_')[0];
+                    }
+
+                    if (needToConvertList.indexOf(operator) > -1) {
+                        value = Entry.toRadian(value);
                     }
 
                     let returnVal = 0;
@@ -777,11 +771,6 @@ module.exports = {
                         case 'acos':
                         case 'atan':
                             returnVal = Entry.toDegrees(Math[operator](value));
-                            break;
-                        case 'sin':
-                        case 'cos':
-                        case 'tan':
-                            returnVal = Entry.preciseTrig(value, operator);
                             break;
                         case 'unnatural': {
                             returnVal = new BigNumber(value).minus(Math.floor(value));
@@ -1055,17 +1044,22 @@ module.exports = {
                         text: Lang.Blocks.CALC_get_timer_value,
                         color: '#FFF',
                     },
+                    {
+                        type: 'Text',
+                        text: '',
+                        color: '#FFF',
+                    },
                 ],
                 events: {
                     viewAdd: [
-                        function () {
+                        function() {
                             if (Entry.engine) {
                                 Entry.engine.showProjectTimer();
                             }
                         },
                     ],
                     viewDestroy: [
-                        function (block, notIncludeSelf) {
+                        function(block, notIncludeSelf) {
                             if (Entry.engine) {
                                 Entry.engine.hideProjectTimer(block, notIncludeSelf);
                             }
@@ -1127,14 +1121,14 @@ module.exports = {
                 ],
                 events: {
                     viewAdd: [
-                        function () {
+                        function() {
                             if (Entry.engine) {
                                 Entry.engine.showProjectTimer();
                             }
                         },
                     ],
                     dataDestroy: [
-                        function (block) {
+                        function(block) {
                             if (Entry.engine) {
                                 Entry.engine.hideProjectTimer(block);
                             }
@@ -1265,14 +1259,14 @@ module.exports = {
                 ],
                 events: {
                     viewAdd: [
-                        function () {
+                        function() {
                             if (Entry.engine) {
                                 Entry.engine.showProjectTimer();
                             }
                         },
                     ],
                     viewDestroy: [
-                        function (block, notIncludeSelf) {
+                        function(block, notIncludeSelf) {
                             if (Entry.engine) {
                                 Entry.engine.hideProjectTimer(block, notIncludeSelf);
                             }
@@ -1667,7 +1661,10 @@ module.exports = {
                 isNotFor: ['python_disable'],
                 func(sprite, script) {
                     const originStr = script.getStringValue('STRING', script);
-                    const reversedStr = originStr.split('').reverse().join('');
+                    const reversedStr = originStr
+                        .split('')
+                        .reverse()
+                        .join('');
                     return reversedStr;
                 },
                 syntax: {
@@ -2060,7 +2057,15 @@ module.exports = {
                 func(sprite, script) {
                     const originStr = script.getStringValue('STRING', script);
                     const targetStr = script.getStringValue('TARGET', script);
-                    return originStr.split(targetStr).length - 1;
+
+                    let count = 0;
+                    const substrLength = targetStr.length;
+                    for (let i = 0; i <= originStr.length - substrLength; i++) {
+                        if (originStr.substring(i, i + substrLength) === targetStr) {
+                            count++;
+                        }
+                    }
+                    return count;
                 },
                 syntax: {
                     js: [],
@@ -2242,10 +2247,16 @@ module.exports = {
                 class: 'calc_string',
                 isNotFor: [],
                 func(sprite, script) {
-                    const oldWord = script.getStringValue('OLD_WORD', script);
-                    const newWord = script.getStringValue('NEW_WORD', script);
-                    const originalString = script.getStringValue('STRING', script);
-                    return originalString.split(oldWord).join(newWord);
+                    const oldWord = script
+                        .getStringValue('OLD_WORD', script)
+                        .replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+                    return script
+                        .getStringValue('STRING', script)
+                        .replace(
+                            new RegExp(oldWord, 'gm'),
+                            script.getStringValue('NEW_WORD', script)
+                        );
                 },
                 syntax: {
                     js: [],
@@ -2529,11 +2540,7 @@ module.exports = {
                     },
                     {
                         type: 'Dropdown',
-                        options: [
-                            ['R', 'r'],
-                            ['G', 'g'],
-                            ['B', 'b'],
-                        ],
+                        options: [['R', 'r'], ['G', 'g'], ['B', 'b']],
                         value: 'RED',
                         fontSize: 10,
                         bgColor: EntryStatic.colorSet.block.darken.CALC,
@@ -2560,45 +2567,6 @@ module.exports = {
                     const color = script.getField('COLOR', script);
                     const value = script.getValue('HEX', script);
                     return Entry.hex2rgb(value)[color];
-                },
-            },
-            get_boolean_value: {
-                color: EntryStatic.colorSet.block.default.CALC,
-                fontColor: '#FFF',
-                outerLine: EntryStatic.colorSet.block.darken.CALC,
-                skeleton: 'basic_string_field',
-                statements: [],
-                params: [
-                    {
-                        type: 'Block',
-                        accept: 'boolean',
-                    },
-                ],
-                events: {},
-                def: {
-                    params: [{ type: 'True' }],
-                    type: 'get_boolean_value',
-                },
-                class: 'calc_boolean',
-                isNotFor: [],
-                paramsKeyMap: {
-                    BOOLEAN: 0,
-                },
-                func(sprite, script) {
-                    const bool = script.getValue('BOOLEAN', script);
-                    if (Boolean(bool)) {
-                        return 'TRUE';
-                    }
-                    return 'FALSE';
-                },
-                syntax: {
-                    js: [],
-                    py: [
-                        {
-                            syntax: 'Entry.value_of_username()',
-                            blockType: 'param',
-                        },
-                    ],
                 },
             },
         };
