@@ -216,6 +216,7 @@ Entry.AI_UTILIZE_BLOCK.objectDetector.getBlocks = function() {
             func(sprite, script) {
                 return script.callReturn();
             },
+            wikiClass: 'ai_utilize_object',
         },
         object_detector: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -244,6 +245,7 @@ Entry.AI_UTILIZE_BLOCK.objectDetector.getBlocks = function() {
                 }
                 return script.callReturn();
             },
+            wikiClass: 'ai_utilize_object',
         },
         draw_detected_object: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -272,6 +274,7 @@ Entry.AI_UTILIZE_BLOCK.objectDetector.getBlocks = function() {
                 }
                 return script.callReturn();
             },
+            wikiClass: 'ai_utilize_object',
         },
         check_detected_object: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -289,6 +292,7 @@ Entry.AI_UTILIZE_BLOCK.objectDetector.getBlocks = function() {
             func(sprite, script) {
                 return mediaPipeUtils.isPrevObjectDetector;
             },
+            wikiClass: 'ai_utilize_object',
         },
         count_detected_object: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -306,6 +310,7 @@ Entry.AI_UTILIZE_BLOCK.objectDetector.getBlocks = function() {
             func(sprite, script) {
                 return mediaPipeUtils.countDetectedObject || 0;
             },
+            wikiClass: 'ai_utilize_object',
         },
         is_detected_among_objects: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -334,6 +339,7 @@ Entry.AI_UTILIZE_BLOCK.objectDetector.getBlocks = function() {
                 }
                 return false;
             },
+            wikiClass: 'ai_utilize_object',
         },
     };
 };

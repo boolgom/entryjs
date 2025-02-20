@@ -146,6 +146,7 @@ module.exports = {
                 class: 'ai_learning',
                 isNotFor: ['ai_learning_image'],
                 events: {},
+                wikiClass: 'ai_image',
             },
             learning_title_speech: {
                 skeleton: 'basic_text',
@@ -164,6 +165,7 @@ module.exports = {
                 class: 'ai_learning',
                 isNotFor: ['ai_learning_speech'],
                 events: {},
+                wikiClass: 'ai_speech',
             },
             learning_title_text: {
                 skeleton: 'basic_text',
@@ -182,6 +184,7 @@ module.exports = {
                 class: 'ai_learning',
                 isNotFor: ['ai_learning_text'],
                 events: {},
+                wikiClass: 'ai_text',
             },
             insert_data_for_test: {
                 color: EntryStatic.colorSet.block.default.AI_LEARNING,
@@ -274,6 +277,7 @@ module.exports = {
                     js: [],
                     py: [],
                 },
+                wikiClass: 'ai_image',
             },
             insert_text_block_for_test: {
                 color: EntryStatic.colorSet.block.default.AI_LEARNING,
@@ -320,6 +324,7 @@ module.exports = {
                     js: [],
                     py: [],
                 },
+                wikiClass: 'ai_text',
             },
             test_result: {
                 color: EntryStatic.colorSet.block.default.AI_LEARNING,

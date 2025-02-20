@@ -493,6 +493,7 @@ Entry.EXPANSION_BLOCK.emergencyActionGuidelines.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'emergencyActionGuidelines',
         },
         get_disaster_guideline: {
             color: EntryStatic.colorSet.block.default.EXPANSION,
@@ -539,6 +540,7 @@ Entry.EXPANSION_BLOCK.emergencyActionGuidelines.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'emergencyActionGuidelines',
         },
         count_social_disaster_guideline: {
             color: EntryStatic.colorSet.block.default.EXPANSION,
@@ -574,6 +576,7 @@ Entry.EXPANSION_BLOCK.emergencyActionGuidelines.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'emergencyActionGuidelines',
         },
         get_social_disaster_guideline: {
             color: EntryStatic.colorSet.block.default.EXPANSION,
@@ -620,6 +623,7 @@ Entry.EXPANSION_BLOCK.emergencyActionGuidelines.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'emergencyActionGuidelines',
         },
         count_safety_accident_guideline: {
             color: EntryStatic.colorSet.block.default.EXPANSION,
@@ -655,6 +659,7 @@ Entry.EXPANSION_BLOCK.emergencyActionGuidelines.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'emergencyActionGuidelines',
         },
         get_safety_accident_guideline: {
             color: EntryStatic.colorSet.block.default.EXPANSION,
@@ -701,6 +706,7 @@ Entry.EXPANSION_BLOCK.emergencyActionGuidelines.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'emergencyActionGuidelines',
         },
     };
 };

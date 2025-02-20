@@ -218,6 +218,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
             func(sprite, script) {
                 return script.callReturn();
             },
+            wikiClass: 'ai_utilize_gesture',
         },
         hand_detection: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -246,6 +247,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
                 }
                 return script.callReturn();
             },
+            wikiClass: 'ai_utilize_gesture',
         },
         draw_detected_hand: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -274,6 +276,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
                 }
                 return script.callReturn();
             },
+            wikiClass: 'ai_utilize_gesture',
         },
         check_detected_hand: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -293,6 +296,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
             func(sprite, script) {
                 return mediaPipeUtils.isPrevHandDetected;
             },
+            wikiClass: 'ai_utilize_gesture',
         },
         count_detected_hand: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -312,6 +316,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
             func(sprite, script) {
                 return mediaPipeUtils.countDetectedHand;
             },
+            wikiClass: 'ai_utilize_gesture',
         },
         locate_to_hand: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -350,6 +355,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
                 }
                 return script.callReturn();
             },
+            wikiClass: 'ai_utilize_gesture',
         },
         locate_time_to_hand: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -431,6 +437,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
                     return script.callReturn();
                 }
             },
+            wikiClass: 'ai_utilize_gesture',
         },
         axis_detected_hand: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -468,6 +475,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
                 }
                 return 0;
             },
+            wikiClass: 'ai_utilize_gesture',
         },
         is_which_hand: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -495,6 +503,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
                 }
                 return handedness.categoryName === hand;
             },
+            wikiClass: 'ai_utilize_gesture',
         },
         get_which_hand: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -520,6 +529,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
                     return Lang.Blocks.left_hand;
                 }
             },
+            wikiClass: 'ai_utilize_gesture',
         },
         is_which_gesture: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -547,6 +557,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
                 }
                 return gesture.categoryName === gestureName;
             },
+            wikiClass: 'ai_utilize_gesture',
         },
         get_which_gesture: {
             color: EntryStatic.colorSet.block.default.AI_UTILIZE,
@@ -570,6 +581,7 @@ Entry.AI_UTILIZE_BLOCK.gestureRecognition.getBlocks = function() {
                 }
                 return Lang.gesture_list[gesture.categoryName.toLowerCase()] || Lang.Blocks.unknown;
             },
+            wikiClass: 'ai_utilize_gesture',
         },
     };
 };

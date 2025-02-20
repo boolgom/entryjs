@@ -216,6 +216,7 @@ Entry.EXPANSION_BLOCK.behaviorConductDisaster.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'emergencyActionGuidelines',
         },
         get_disaster_behavior: {
             color: EntryStatic.colorSet.block.default.EXPANSION,
@@ -262,6 +263,7 @@ Entry.EXPANSION_BLOCK.behaviorConductDisaster.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'emergencyActionGuidelines',
         },
     };
 };

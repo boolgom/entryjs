@@ -220,6 +220,7 @@ Entry.EXPANSION_BLOCK.behaviorConductLifeSafety.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'emergencyActionGuidelines',
         },
         get_lifeSafety_behavior: {
             color: EntryStatic.colorSet.block.default.EXPANSION,
@@ -266,6 +267,7 @@ Entry.EXPANSION_BLOCK.behaviorConductLifeSafety.getBlocks = function () {
                 js: [],
                 py: [],
             },
+            wikiClass: 'emergencyActionGuidelines',
         },
     };
 };
